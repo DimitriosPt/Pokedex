@@ -3,7 +3,7 @@ import './App.css';
 import FindPokemon from './findPokemon';
 
 function App() {
-    const [search, setSearch] = useState("");
+    const [search, setSearch] = useState("Pikachu");
     const secondContents = <FindPokemon pokemonName={search} />;
 
     
