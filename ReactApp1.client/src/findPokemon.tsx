@@ -5,15 +5,20 @@ interface Pokemon {
     types: string[];
 }
 
-function FindPokemon() {
-    const [pokemon, setPokemon] = useState<Pokemon>({ name: "pikachu", types:["electric"] });
+interface Props {
+    pokemonName: string;
+}
+
+function FindPokemon({ pokemonName }: Props) {
+
+    const [pokemon, setPokemon] = useState<Pokemon>({ name: "pikachu", types: ["electric"] });
 
     useEffect(() => {
-        getPokemonDataFromName();
-    }, []);
+        getPokemonDataFromName(pokemonName);
+    }, [pokemonName]);
 
-    async function getPokemonDataFromName() {
-        const response = await fetch(`findPokemon/`);
+    async function getPokemonDataFromName(pokemonName: string) {
+        const response = await fetch(`findPokemon/${pokemonName}`);
         const data = await response.json();
 
         console.log(data);
@@ -23,7 +28,9 @@ function FindPokemon() {
     return (
         <div>
             <h1 id="tableLabel">{pokemon.name}</h1>
-            <p>{pokemon.types}</p>
+            {pokemon.types.map((type, index) => (
+                <p key={index}>{type}</p>
+            ))}
         </div>
     );
 }
