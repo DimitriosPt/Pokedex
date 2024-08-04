@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pokedex.Server", "ReactApp1.Server\pokedex.Server.csproj", "{228FB608-BC30-402A-BD81-8EB48A33E73E}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "pokedex.client", "reactapp1.client\pokedex.client.esproj", "{658A9A10-9B71-444E-8126-E26C76A3E448}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{228FB608-BC30-402A-BD81-8EB48A33E73E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{228FB608-BC30-402A-BD81-8EB48A33E73E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{228FB608-BC30-402A-BD81-8EB48A33E73E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{228FB608-BC30-402A-BD81-8EB48A33E73E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{658A9A10-9B71-444E-8126-E26C76A3E448}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{658A9A10-9B71-444E-8126-E26C76A3E448}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{658A9A10-9B71-444E-8126-E26C76A3E448}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{658A9A10-9B71-444E-8126-E26C76A3E448}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{658A9A10-9B71-444E-8126-E26C76A3E448}.Release|Any CPU.Build.0 = Release|Any CPU
+		{658A9A10-9B71-444E-8126-E26C76A3E448}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A28E63E6-B0DE-4755-B573-78E99AC84BB6}
+	EndGlobalSection
+EndGlobal
