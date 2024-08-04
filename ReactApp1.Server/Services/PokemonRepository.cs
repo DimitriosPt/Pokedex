@@ -21,9 +21,10 @@ namespace pokedex.Server.Services
         /// <returns></returns>
         public async Task<Pokemon> GetPokemon(string name)
         {
+            string pokemonName = name.ToLower();
             using (var client = new HttpClient())
             {
-                var response = await client.GetAsync(endpoint + name);
+                var response = await client.GetAsync(endpoint + pokemonName);
 
                 if (response.StatusCode == HttpStatusCode.NotFound)
                 {
@@ -38,7 +39,7 @@ namespace pokedex.Server.Services
 
                 // TODO: Implement logic to deserialize and process the Pokemon data from the JSON response
 
-                Pokemon pokemonData = new Pokemon($"{name}", types);
+                Pokemon pokemonData = new Pokemon($"{pokemonName}", types);
 
                 // Return the processed Pokemon data
                 return pokemonData;
