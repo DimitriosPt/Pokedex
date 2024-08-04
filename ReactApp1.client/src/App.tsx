@@ -1,19 +1,17 @@
+import { useState } from 'react';
 import './App.css';
 import FindPokemon from './findPokemon';
-import Forecast from './forecast';
-
 
 function App() {
-    
-    const contents = <Forecast />;
+    const [search, setSearch] = useState("");
+    const secondContents = <FindPokemon pokemonName={search} />;
 
-    const secondContents = <FindPokemon />;
+    
 
     return (
         <div>
-            <h1 id="tableLabel">Weather forecast</h1>
-            <p>This component demonstrates fetching data from the server.</p>
-            {contents}
+            <input type="text" value={search} onChange={e => setSearch(e.target.value)} />
+
             {secondContents }
         </div>
     );
