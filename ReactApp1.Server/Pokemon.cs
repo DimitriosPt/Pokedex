@@ -15,6 +15,16 @@
         /// <param name="name"></param>
         public Pokemon(string name, IList<string> types)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Name cannot be null or empty.", nameof(name));
+            }
+
+            if (types == null || !types.Any())
+            {
+                throw new ArgumentNullException(nameof(types));
+            }
+
             Name = name;
             Types = types;
         }
