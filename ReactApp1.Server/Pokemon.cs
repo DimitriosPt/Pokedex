@@ -9,6 +9,8 @@
 
         public IList<string> Types { get; set; } = new List<string>();
 
+        public string SpriteURL { get; set; }
+
         /// <summary>
         /// Creates a new instance of the <see cref="Pokemon"/> class.
         /// </summary>
@@ -27,6 +29,7 @@
 
             Name = name;
             Types = types;
+            SpriteURL = null;
         }
 
     }

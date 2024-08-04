@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 interface Pokemon {
     name: string;
     types: string[];
+    spriteURL?: string;
 }
 
 interface Props {
@@ -31,6 +32,7 @@ function FindPokemon({ pokemonName }: Props) {
             {pokemon.types.map((type, index) => (
                 <p key={index}>{type}</p>
             ))}
+            <img src={pokemon.spriteURL} />
         </div>
     );
 }

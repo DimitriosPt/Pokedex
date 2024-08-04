@@ -37,9 +37,11 @@ namespace pokedex.Server.Services
 
                 List<string> types = parsedJson?["types"]?.Select(t => t["type"]?["name"]?.ToString() ?? string.Empty).ToList() ?? new List<string>();
 
+                var spriteUrl = parsedJson?["sprites"]?["front_default"]?.ToString() ?? string.Empty;
+
                 // TODO: Implement logic to deserialize and process the Pokemon data from the JSON response
 
-                Pokemon pokemonData = new Pokemon($"{pokemonName}", types);
+                Pokemon pokemonData = new Pokemon($"{pokemonName}", types) { SpriteURL = spriteUrl};
 
                 // Return the processed Pokemon data
                 return pokemonData;
