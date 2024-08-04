@@ -30,7 +30,7 @@ namespace ReactApp1.Server.Controllers
 
                 var json = await response.Content.ReadAsStringAsync();
 
-                var types = JObject.Parse(json)["types"].Select(t => t["type"]["name"].ToString()).ToList();
+                List<string> types = JObject.Parse(json)?["types"]?.Select(t => t["type"]?["name"]?.ToString() ?? string.Empty).ToList() ?? new List<string>();
 
                 // TODO: Implement logic to deserialize and process the Pokemon data from the JSON response
 
@@ -60,7 +60,7 @@ namespace ReactApp1.Server.Controllers
 
                 var json = await response.Content.ReadAsStringAsync();
 
-                var types = JObject.Parse(json)["types"].Select(t => t["type"]["name"].ToString()).ToList();
+                var types = JObject.Parse(json)["types"]?.Select(t => t["type"]?["name"]?.ToString()).ToList();
 
                 // TODO: Implement logic to deserialize and process the Pokemon data from the JSON response
 

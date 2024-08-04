@@ -28,7 +28,9 @@ function FindPokemon({ pokemonName }: Props) {
     return (
         <div>
             <h1 id="tableLabel">{pokemon.name}</h1>
-            <p>{pokemon.types}</p>
+            {pokemon.types.map((type, index) => (
+                <p key={index}>{type}</p>
+            ))}
         </div>
     );
 }
