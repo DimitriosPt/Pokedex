@@ -55,7 +55,16 @@ export default defineConfig({
             '^/pokemonstats': {
                 target,
                 secure: false
+            },
+            '^/types': {
+                target,
+                secure: false
+            },
+            '^/typelookup': {
+                target,
+                secure: false
             }
+
 
         },
         port: 5173,
