@@ -1,4 +1,4 @@
-﻿namespace ReactApp1.Server
+﻿namespace pokedex.Server.Models
 {
     public class Pokemon
     {

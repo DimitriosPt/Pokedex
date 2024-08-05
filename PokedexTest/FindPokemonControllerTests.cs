@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using pokedex.Server.Models;
 using pokedex.Server.Services.Interfaces;
-using ReactApp1.Server;
 using ReactApp1.Server.Controllers;
 using System;
 using System.Collections.Generic;
