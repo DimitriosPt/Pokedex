@@ -1,18 +1,18 @@
 import { useState } from 'react';
 import './App.css';
 import FindPokemon from './findPokemon';
+import Statblock from './statblock';
 
 function App() {
     const [search, setSearch] = useState("Pikachu");
-    const secondContents = <FindPokemon pokemonName={search} />;
-
-    
 
     return (
         <div>
             <input type="text" value={search} onChange={e => setSearch(e.target.value)} />
 
-            {secondContents }
+            <FindPokemon pokemonName={search} />
+
+            <Statblock pokemonName={search} />
         </div>
     );
 

@@ -1,5 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ReactApp1.Server;
+using pokedex.Server.Models;
 
 namespace PokedexTest
 {

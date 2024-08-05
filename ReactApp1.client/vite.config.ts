@@ -51,6 +51,10 @@ export default defineConfig({
             '^/findPokemon': {
                 target,
                 secure: false
+            },
+            '^/pokemonstats': {
+                target,
+                secure: false
             }
 
         },
