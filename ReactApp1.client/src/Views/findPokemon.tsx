@@ -45,7 +45,6 @@ function FindPokemon({ pokemonName }: Props) {
     async function updateMatchups(pokemon: Pokemon)
     { 
         const pokemonTypes = pokemon.types;
-
         let allStrongTypes: string[] = [];
 
         await Promise.all(pokemonTypes.map(async (type) => {
@@ -57,7 +56,7 @@ function FindPokemon({ pokemonName }: Props) {
             allStrongTypes = allStrongTypes.concat(doubleDamageTo);
         }));
 
-        setStrongTypes(allStrongTypes);
+        setStrongTypes(Array.from(new Set(allStrongTypes)));
     }
 
     return (
