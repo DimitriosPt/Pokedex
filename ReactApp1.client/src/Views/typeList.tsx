@@ -55,9 +55,7 @@ export function WeakTypesList({ typesList }: Props) {
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
             {Array.from(typesAndOccurrences.entries()).map(([type, value], index) => (
-                <b key={index}>
-                    <p style={{ marginRight: '10px' }}>{`${type}: ${value * 2}x`}</p>
-                </b>
+                    <p key={index}  style={{ marginRight: '10px' }}>{`${type}: ${value * 2}x`}</p>
             ))}
         </div>
     );

@@ -12,6 +12,8 @@ interface TypeRelationTable {
     type: string,
     typeAdvantages: string[],
     typeDisadvantages: string[],
+    typeResistances: string[],
+    typeImmunities: string[]
 }
 
 interface Props {
@@ -21,6 +23,7 @@ interface Props {
 function FindPokemon({ pokemonName }: Props) {
 
     const [pokemon, setPokemon] = useState<Pokemon>({ name: "pikachu", types: ["electric"] });
+    const [typeData, setTypeData] = useState<TypeRelationTable[]>([]);
 
     const [strongTypes, setStrongTypes] = useState<string[]>([]);
 
@@ -46,15 +49,18 @@ function FindPokemon({ pokemonName }: Props) {
     { 
         const pokemonTypes = pokemon.types;
         let allStrongTypes: string[] = [];
+        const typeDataTable: TypeRelationTable[] = [];
 
-        await Promise.all(pokemonTypes.map(async (type) => {
+        await Promise.all(pokemonTypes.map(async (type, index) => {
             const typeIDData = await fetch(`typelookup/${type}`);
-            const typeData = await typeIDData.json() as TypeRelationTable;
+            typeDataTable[index] = await typeIDData.json() as TypeRelationTable;
 
-            const doubleDamageTo = typeData.typeAdvantages;
+            const doubleDamageTo = typeDataTable[index].typeAdvantages;
 
             allStrongTypes = allStrongTypes.concat(doubleDamageTo);
         }));
+
+        setTypeData(typeDataTable);
 
         setStrongTypes(Array.from(new Set(allStrongTypes)));
     }
@@ -69,6 +75,9 @@ function FindPokemon({ pokemonName }: Props) {
 
             <h4>Strong Against:</h4>
             <TypesList typesList={strongTypes} />
+
+            <h4>Immune to:</h4>
+            <TypesList typesList={Array.from(new Set(typeData.flatMap(type => type.typeImmunities)))} />
 
             <h4>Weak Against:</h4>
             <WeakTypesList typesList={pokemon.types} />

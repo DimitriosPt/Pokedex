@@ -191,8 +191,12 @@ namespace pokedex.Server.Services
 
                 List<string> disadvantages = parsedJson?["damage_relations"]?["double_damage_from"]?.Select(t => t["name"]?.ToString() ?? string.Empty).ToList() ?? new List<string>();
 
+                List<string> resistances = parsedJson?["damage_relations"]?["half_damage_from"]?.Select(t => t["name"]?.ToString() ?? string.Empty).ToList() ?? new List<string>();
+
+                List<string> immunities = parsedJson?["damage_relations"]?["no_damage_from"]?.Select(t => t["name"]?.ToString() ?? string.Empty).ToList() ?? new List<string>();
+
                 // Return the processed Pokemon data
-                return new TypeRelationTable(id, typeName, advantages, disadvantages);
+                return new TypeRelationTable(id, typeName, advantages, disadvantages, resistances, immunities);
             }
         }
     }

@@ -26,18 +26,30 @@
         public IEnumerable<string> TypeDisadvantages { get; set; }
 
         /// <summary>
+        /// A collection of types that deal half damage to this type.
+        /// </summary>
+        public IEnumerable<string> TypeResistances { get; set; }
+
+        /// <summary>
+        /// A collection of types that deal 0 damage to this type.
+        /// </summary>
+        public IEnumerable<string> TypeImmunities { get; set; }
+
+        /// <summary>
         /// Creates an instance of the <see cref="TypeRelationTable"/> class.
         /// </summary>
         /// <param name="iD"></param>
         /// <param name="type"></param>
         /// <param name="typeAdvantages"></param>
         /// <param name="typeDisadvantages"></param>
-        public TypeRelationTable(int iD, string type, IEnumerable<string> typeAdvantages, IEnumerable<string> typeDisadvantages)
+        public TypeRelationTable(int iD, string type, IEnumerable<string> typeAdvantages, IEnumerable<string> typeDisadvantages, IEnumerable<string> typeResistances, IEnumerable<string> typeImmunities)
         {
             ID = iD;
             Type = type;
             TypeAdvantages = typeAdvantages;
             TypeDisadvantages = typeDisadvantages;
+            TypeResistances = typeResistances;
+            TypeImmunities = typeImmunities;
         }
     }
 }
