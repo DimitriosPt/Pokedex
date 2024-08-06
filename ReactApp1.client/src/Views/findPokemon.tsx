@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import TypesList from './typeList';
+import TypesList, { WeakTypesList } from './typeList';
 
 interface Pokemon {
     name: string;
@@ -67,8 +67,11 @@ function FindPokemon({ pokemonName }: Props) {
             ))}
             <img src={pokemon.spriteURL} />
 
-            <h3>Strong Against:</h3>
+            <h4>Strong Against:</h4>
             <TypesList typesList={strongTypes} />
+
+            <h4>Weak Against:</h4>
+            <WeakTypesList typesList={pokemon.types} />
         </div>
     );
 }
