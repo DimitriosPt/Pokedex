@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
-import FindPokemon from './findPokemon';
-import Statblock from './statblock';
+import FindPokemon from './Views/findPokemon';
+import Statblock from './Views/statblock';
 
 function App() {
     const [search, setSearch] = useState("Pikachu");

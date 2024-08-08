@@ -12,7 +12,9 @@ namespace pokedex.Server.Services
     /// </summary>
     public class PokemonRepository : IPokemonRepository
     {
-        private string endpoint = "https://pokeapi.co/api/v2/pokemon/";
+        private string pokemonEndPoint = "https://pokeapi.co/api/v2/pokemon/";
+
+        private string typesEndPoint = "https://pokeapi.co/api/v2/type/";
 
         /// <summary>
         /// Attempts to retrieve Pokemon data from the API using the provided name.
@@ -24,7 +26,7 @@ namespace pokedex.Server.Services
             string pokemonName = name.ToLower();
             using (var client = new HttpClient())
             {
-                var response = await client.GetAsync(endpoint + pokemonName);
+                var response = await client.GetAsync(pokemonEndPoint + pokemonName);
 
                 if (response.StatusCode == HttpStatusCode.NotFound)
                 {
@@ -58,7 +60,7 @@ namespace pokedex.Server.Services
         {
             using (var client = new HttpClient())
             {
-                var response = await client.GetAsync(endpoint + id);
+                var response = await client.GetAsync(pokemonEndPoint + id);
 
                 if (response.StatusCode == HttpStatusCode.NotFound)
                 {
@@ -95,7 +97,7 @@ namespace pokedex.Server.Services
 
             using (var client = new HttpClient())
             {
-                var response = await client.GetAsync(endpoint + pokemonName);
+                var response = await client.GetAsync(pokemonEndPoint + pokemonName);
 
                 if (response.StatusCode == HttpStatusCode.NotFound)
                 {
@@ -121,6 +123,81 @@ namespace pokedex.Server.Services
                 return new Statblock(name, stats);
             }
 
+        }
+
+        /// <summary>
+        /// Gets the ID for a given type.
+        /// </summary>
+        /// <param name="typeName"></param>
+        /// <returns></returns>
+        public async Task<int> GetTypeID(string typeName)
+        {
+            string type = typeName.Replace(" ", "").ToLower();
+
+            using (var client = new HttpClient())
+            {
+                var allTypes = await client.GetAsync(typesEndPoint);
+
+                if (allTypes.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return -1;
+                }
+
+                var json = await allTypes.Content.ReadAsStringAsync();
+
+                var parsedJson = JObject.Parse(json);
+
+                var typesArray = parsedJson?["results"]?.ToArray() ?? new JToken[0];
+
+                var matchingType = typesArray.FirstOrDefault(typesArray => typesArray["name"].ToString().Equals(type));
+
+                if (matchingType == null)
+                {
+                    matchingType =  typesArray.FirstOrDefault(typesArray => typesArray["name"].ToString().Equals("unknown"));
+                }
+
+                var typeURL = matchingType["url"];
+
+                var splitURL = typeURL?.ToString().Split('/');
+                var typeID = splitURL[splitURL.Length - 2];
+
+                return int.Parse(typeID);
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="TypeRelationTable"/> for a given type.
+        /// </summary>
+        /// <param name="id">The id of the type.</param>
+        /// <returns></returns>
+        public async Task<TypeRelationTable> GetTypeRelations(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                var response = await client.GetAsync($"https://pokeapi.co/api/v2/type/{id}");
+
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return null;
+                }
+
+                var json = await response.Content.ReadAsStringAsync();
+
+                var parsedJson = JObject.Parse(json);
+
+                string typeName = parsedJson?["name"]?.ToString() ?? string.Empty;
+
+                List<string> advantages = parsedJson?["damage_relations"]?["double_damage_to"]?.Select(t => t["name"]?.ToString() ?? string.Empty).ToList() ?? new List<string>();
+
+                List<string> disadvantages = parsedJson?["damage_relations"]?["double_damage_from"]?.Select(t => t["name"]?.ToString() ?? string.Empty).ToList() ?? new List<string>();
+
+                List<string> resistances = parsedJson?["damage_relations"]?["half_damage_from"]?.Select(t => t["name"]?.ToString() ?? string.Empty).ToList() ?? new List<string>();
+
+                List<string> immunities = parsedJson?["damage_relations"]?["no_damage_from"]?.Select(t => t["name"]?.ToString() ?? string.Empty).ToList() ?? new List<string>();
+
+                // Return the processed Pokemon data
+                return new TypeRelationTable(id, typeName, advantages, disadvantages, resistances, immunities);
+            }
         }
     }
 }

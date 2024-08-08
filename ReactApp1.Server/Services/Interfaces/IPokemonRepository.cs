@@ -24,5 +24,19 @@ namespace pokedex.Server.Services.Interfaces
         /// <param name="id">The ID of the pokemon to retrieve data for.</param>
         /// <returns>The pokemon if one was found, null otherwise.</returns>
         public Task<Pokemon> GetPokemon(int id);
+
+        /// <summary>
+        /// Gets the <see cref="TypeRelationTable"/> for a given type.
+        /// </summary>
+        /// <param name="id">The id of the type.</param>
+        /// <returns></returns>
+        public Task<TypeRelationTable> GetTypeRelations(int id);
+
+        /// <summary>
+        /// Gets the ID for a given type.
+        /// </summary>
+        /// <param name="id">The human readable name like "fire" or "normal"</param>
+        /// <returns>The numeric key that aligns with the element.</returns>
+        public Task<int> GetTypeID(string typeName);
     }
 }
