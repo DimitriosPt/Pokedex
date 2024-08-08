@@ -28,31 +28,38 @@ function FindPokemon({ pokemonName }: Props) {
     const [strongTypes, setStrongTypes] = useState<string[]>([]);
 
     useEffect(() => {
-        getPokemonDataFromName(pokemonName);
+        const controller = new AbortController();
+
+        getPokemonDataFromName(pokemonName, controller.signal);
+
+        return () => controller.abort();
     }, [pokemonName]);
 
     useEffect(() =>
     {
-        updateMatchups(pokemon);
+        const controller = new AbortController();
+
+        updateMatchups(pokemon, controller.signal);
+        return () => controller.abort();
     }, [pokemon]);
 
-    async function getPokemonDataFromName(pokemonName: string)
+    async function getPokemonDataFromName(pokemonName: string, abortSignal: AbortSignal)
     {
-        const response = await fetch(`findPokemon/${pokemonName}`);
+        const response = await fetch(`findPokemon/${pokemonName}`, { signal: abortSignal });
         const data = await response.json();
 
         console.log(data);
         setPokemon(data as Pokemon);
     }
 
-    async function updateMatchups(pokemon: Pokemon)
+    async function updateMatchups(pokemon: Pokemon, abortSignal: AbortSignal)
     { 
         const pokemonTypes = pokemon.types;
         let allStrongTypes: string[] = [];
         const typeDataTable: TypeRelationTable[] = [];
 
         await Promise.all(pokemonTypes.map(async (type, index) => {
-            const typeIDData = await fetch(`typelookup/${type}`);
+            const typeIDData = await fetch(`typelookup/${type}`, { signal: abortSignal });
             typeDataTable[index] = await typeIDData.json() as TypeRelationTable;
 
             const doubleDamageTo = typeDataTable[index].typeAdvantages;
