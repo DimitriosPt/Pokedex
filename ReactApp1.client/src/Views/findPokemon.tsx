@@ -20,6 +20,54 @@ interface Props {
     pokemonName: string;
 }
 
+
+function DetermineWeaknesses(typeData: TypeRelationTable[]): Map<string, number> | undefined{
+
+    const allWeaknesses: Map<string, number> = new Map<string, number>();
+
+    // Populate allWeaknesses with all types that the pokemon is weak to for its first type.
+    typeData[0].typeDisadvantages.map(
+        (type) => {
+            allWeaknesses.set(type, 2);
+        });
+
+    if (typeData.length == 2) {
+        const secondType = typeData[1];
+
+        // Go thorugh the weaknesses of the second type and add them to the allWeaknesses object.
+        // if a weakness overlaps, then the weakness is 4x.
+        secondType.typeDisadvantages.map((type) => {
+            if (allWeaknesses.has(type)) {
+                // Type is a key in the allWeaknesses dictionary
+                allWeaknesses.set(type, 4);
+            } else {
+                // Type is not a key in the allWeaknesses dictionary
+                allWeaknesses.set(type, 2);
+            }
+        })
+
+        // Go through types 1's resistances and remove them from the weaknesses, they now have a normal damage relationship.
+        typeData[0].typeResistances.map((type) =>
+        {
+            allWeaknesses.delete(type);
+        })
+
+        // do the same thing for type 2's resistances.
+        typeData[1].typeResistances.map((type) => {
+            allWeaknesses.delete(type);
+        })
+
+
+        // Remove the immunities from the weaknesses.
+        Array.from(new Set(typeData.flatMap(type => type.typeImmunities))).map((type) => {
+            allWeaknesses.delete(type);
+        });
+    }
+
+    return allWeaknesses;
+}
+
+
 function FindPokemon({ pokemonName }: Props) {
 
     const [pokemon, setPokemon] = useState<Pokemon>({ name: "pikachu", types: ["electric"] });
@@ -35,16 +83,14 @@ function FindPokemon({ pokemonName }: Props) {
         return () => controller.abort();
     }, [pokemonName]);
 
-    useEffect(() =>
-    {
+    useEffect(() => {
         const controller = new AbortController();
 
         updateMatchups(pokemon, controller.signal);
         return () => controller.abort();
     }, [pokemon]);
 
-    async function getPokemonDataFromName(pokemonName: string, abortSignal: AbortSignal)
-    {
+    async function getPokemonDataFromName(pokemonName: string, abortSignal: AbortSignal) {
         const response = await fetch(`findPokemon/${pokemonName}`, { signal: abortSignal });
         const data = await response.json();
 
@@ -52,8 +98,7 @@ function FindPokemon({ pokemonName }: Props) {
         setPokemon(data as Pokemon);
     }
 
-    async function updateMatchups(pokemon: Pokemon, abortSignal: AbortSignal)
-    { 
+    async function updateMatchups(pokemon: Pokemon, abortSignal: AbortSignal) {
         const pokemonTypes = pokemon.types;
         let allStrongTypes: string[] = [];
         const typeDataTable: TypeRelationTable[] = [];
@@ -87,7 +132,10 @@ function FindPokemon({ pokemonName }: Props) {
             <TypesList typesList={Array.from(new Set(typeData.flatMap(type => type.typeImmunities)))} />
 
             <h4>Weak Against:</h4>
-            <WeakTypesList typesList={pokemon.types} />
+            {
+                typeData.length == 0 ? <p>Loading...</p> : <WeakTypesList typesAndValues={DetermineWeaknesses(typeData)} typesList={[]} />
+            }
+            
         </div>
     );
 }
