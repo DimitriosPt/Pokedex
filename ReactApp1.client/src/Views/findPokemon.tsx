@@ -56,8 +56,13 @@ function DetermineWeaknesses(typeData: TypeRelationTable[]): Map<string, number>
         typeData[1].typeResistances.map((type) => {
             allWeaknesses.delete(type);
         })
-    }
 
+
+        // Remove the immunities from the weaknesses.
+        Array.from(new Set(typeData.flatMap(type => type.typeImmunities))).map((type) => {
+            allWeaknesses.delete(type);
+        });
+    }
 
     return allWeaknesses;
 }
