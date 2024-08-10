@@ -14,7 +14,7 @@ function Statblock({ pokemonName }: Props) {
 
     const [pokemonStats, setStats] = useState<Statblock>(
     {
-        name: "pikachu",
+        name: "",
         stats: {
             hp: 0,
             attack: 0,
@@ -23,7 +23,9 @@ function Statblock({ pokemonName }: Props) {
             "special-defense": 0,
             speed: 0
         }
-    })
+        })
+
+    const [isLoading, setIsLoading] = useState(true);
 
 
     useEffect(() => {
@@ -31,24 +33,36 @@ function Statblock({ pokemonName }: Props) {
 
     }, [pokemonName]);
 
-    async function getPokemonStatblock(pokemonName: string) {
+    async function getPokemonStatblock(pokemonName: string)
+    {
+        setIsLoading(true);
         const response = await fetch(`pokemonstats/${pokemonName}`);
-        const data = await response.json();
 
-        console.log(data);
-        setStats(data as Statblock);
+        if (response.ok)
+        {
+            const data = await response.json();
+
+            console.log(data);
+            setStats(data as Statblock);
+            setIsLoading(false);
+        }
+
     }
 
     return (
         <div>
+            {isLoading ? <></> :
+                <>
+                    {
+                        Object.entries(pokemonStats.stats).map(([key, value]) => (
+                            <div>
+                                <label className="stat-label" key={key + "label"} > {key} : {value} </label>
+                                <progress className="stat-progress" key={key + "progress"} max="255" value={pokemonStats.stats[key]} />
+                            </div>
 
-            {Object.entries(pokemonStats.stats).map(([key, value]) => (
-                <div>
-                    <label className="stat-label" key={key + "label"} > {key} : {value} </label>
-                    <progress className="stat-progress" key={key + "progress"} max="255" value={pokemonStats.stats[key]} />
-                </div>
-
-            ))}
+                        ))
+                    }
+                </>}
         </div>);
 }
 
