@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import { useEffect, useState, useRef } from 'react';
 import TypesList, { WeakTypesList } from './typeList';
 
@@ -147,6 +148,8 @@ function FindPokemon({ pokemonName }: Props)
         setTypeData(typeDataTable);
 
         setStrongTypes(Array.from(new Set(allStrongTypes)));
+
+        isLoading.current = false;
     }
 
     return (
