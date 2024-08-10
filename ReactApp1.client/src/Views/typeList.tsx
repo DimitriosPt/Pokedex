@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import ElementIcon from './elementIcon';
 
 interface Props {
     typesList: string[];
@@ -30,7 +31,12 @@ export function WeakTypesList({ typesAndValues }: Props) {
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
             {Array.from(typesAndValues.entries()).map(([type, value], index) => (
-                <p key={index} style={{ marginRight: '10px' }}>{`${type}: ${value}x`}</p>
+                <>
+                    <ElementIcon typeName={type} key={index} />
+                    <p key={index} style={{ marginRight: '10px' }}>{`x${value}`}</p>
+                </>
+
+                /*<p key={index} style={{ marginRight: '10px' }}>{`${type}: ${value}x`}</p>*/
             ))}
         </div>
     );

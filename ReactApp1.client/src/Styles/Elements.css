@@ -1,0 +1,61 @@
+/*
+    A collection of colors for the different elemental types of Pokemon.
+*/
+
+.normal {
+    color: #C4C8C9;
+    accent-color: #FCFDFD
+}
+
+.electric {
+    color: gold;
+    accent-color: #BF9A1A
+}
+
+
+.dragon {
+    color: #44127D;
+    accent-color: #BAB9BF;
+}
+
+.ghost {
+    color: #67606F;
+    accent-color: #8A6FA8;
+}
+
+.ground {
+    color: #504B43;
+    accent-color: #837B6C;
+    background-color: #E0D4B1;
+    border-color: #837B6C;
+}
+
+.elementIcon {
+    height: 12px;
+    width: 50px;
+    border-radius: 30px;
+    border-width: 2px;
+    text-align: center;
+    font-family: "Pixelify Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 50;
+    font-style: normal;
+    font-size: 12px;
+    overflow: hidden;
+    vertical-align: middle;
+    padding: 0px 0px 5px 0px;
+    resize: none;
+    text-shadow: -1px -1px 0 #C4C8C9, 1px -1px 0 #C4C8C9, -1px 1px 0 #FCFDFD, 1px 1px 0 #C4C8C9;
+}
+
+.elementIcon2 {
+    height: 10px;
+    width: 30px;
+    border-radius: 10px;
+    border-width: 2px;
+    text-align: center;
+    font-family: "VT323", monospace;
+    font-weight: 400;
+    font-style: normal;
+    resize: none;
+}

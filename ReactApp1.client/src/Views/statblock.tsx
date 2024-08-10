@@ -13,20 +13,22 @@ interface Props {
 function Statblock({ pokemonName }: Props) {
 
     const [pokemonStats, setStats] = useState<Statblock>(
-        {
-            name: "pikachu",
-            stats: {
-                hp: 0,
-                attack: 0,
-                defense: 0,
-                "special-attack": 0,
-                "special-defense": 0,
-                speed: 0
-            }
-        })
+    {
+        name: "pikachu",
+        stats: {
+            hp: 0,
+            attack: 0,
+            defense: 0,
+            "special-attack": 0,
+            "special-defense": 0,
+            speed: 0
+        }
+    })
+
 
     useEffect(() => {
         getPokemonStatblock(pokemonName);
+
     }, [pokemonName]);
 
     async function getPokemonStatblock(pokemonName: string) {
