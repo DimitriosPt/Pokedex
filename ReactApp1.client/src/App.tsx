@@ -15,7 +15,7 @@ function App() {
                 <div className='child'>
                     <FindPokemon pokemonName={search} />
                 </div>
-                <div className='child'>
+                <div className='child' style={{ marginTop: '20%' }}>
                     <Statblock pokemonName={search} />
                 </div>
             </div>

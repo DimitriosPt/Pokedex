@@ -1,3 +1,4 @@
+import '../Styles/Statblock.css';
 import { useEffect, useState } from 'react';
 
 interface Statblock {
@@ -40,8 +41,8 @@ function Statblock({ pokemonName }: Props) {
 
             {Object.entries(pokemonStats.stats).map(([key, value]) => (
                 <div>
-                    <label key={key + "label"} > {key} : {value} </label>
-                    <progress key={key + "progress"} max="255" value={pokemonStats.stats[key]} />
+                    <label className="stat-label" key={key + "label"} > {key} : {value} </label>
+                    <progress className="stat-progress" key={key + "progress"} max="255" value={pokemonStats.stats[key]} />
                 </div>
 
             ))}
