@@ -10,9 +10,15 @@ function App() {
         <div>
             <input type="text" value={search} onChange={e => setSearch(e.target.value)} />
 
-            <FindPokemon pokemonName={search} />
 
-            <Statblock pokemonName={search} />
+            <div className='parent grid-parent'>
+                <div className='child'>
+                    <FindPokemon pokemonName={search} />
+                </div>
+                <div className='child' style={{ marginTop: '20%' }}>
+                    <Statblock pokemonName={search} />
+                </div>
+            </div>
         </div>
     );
 

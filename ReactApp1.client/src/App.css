@@ -9,3 +9,15 @@ th, td {
     padding-left: 1rem;
     padding-right: 1rem;
 }
+
+.grid-parent {
+    display: grid;
+    grid-template-columns: 1fr 1fr
+}
+
+#stat-progress{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}

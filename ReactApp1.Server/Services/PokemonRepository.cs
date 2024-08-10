@@ -122,7 +122,6 @@ namespace pokedex.Server.Services
                 // Return the processed Pokemon data
                 return new Statblock(name, stats);
             }
-
         }
 
         /// <summary>
