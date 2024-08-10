@@ -5,7 +5,7 @@ import Statblock from './Views/statblock';
 
 function App() {
     const [search, setSearch] = useState("");
-    const [validPokemonName, setPokemonName] = useState("");
+    const [lastValidSearch, setPokemonName] = useState("");
 
     useEffect(() =>
     {
@@ -16,23 +16,28 @@ function App() {
             }
             else
             {
-                setPokemonName(validPokemonName);
+                setPokemonName(lastValidSearch);
             }
         });
     }), [search];
 
+    const invalidSearchStyle = lastValidSearch !== search ? {
+        border: '1px solid red',
+        title: search + ' was not found'
+    } : {};
+
     return (
         <div>
-            <input type="text" value={search} onChange={e => setSearch(e.target.value)} />
+            <input type="text" value={search} onChange={e => setSearch(e.target.value)} style={invalidSearchStyle} title={invalidSearchStyle.title} />
 
-            {validPokemonName === undefined || validPokemonName.length === 0 ?
+            {lastValidSearch === "" ?
                 <p>Enter a pokemon to start</p> : 
                 <div className='parent grid-parent'>
                     <div className='child'>
-                        <FindPokemon pokemonName={validPokemonName} />
+                        <FindPokemon pokemonName={lastValidSearch} />
                     </div>
                     <div className='child' style={{ marginTop: '20%' }}>
-                        <Statblock pokemonName={validPokemonName} />
+                        <Statblock pokemonName={lastValidSearch} />
                     </div>
                 </div>
             }
