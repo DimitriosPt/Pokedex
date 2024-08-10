@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 interface Statblock {
     name: string;
-    stats: [key: string, value: number][];
+    stats: { [key: string]: number };
 }
 
 interface Props {
@@ -15,13 +15,14 @@ function Statblock({ pokemonName }: Props) {
         {
             name: "pikachu",
             stats: [
-                ["hp", 35],
-                ["attack", 55],
-                ["defense", 40],
-                ["special-attack", 50],
-                ["special-defense", 50],
-                ["speed", 90]]
+                ["hp", 0],
+                ["attack", 0],
+                ["defense", 0],
+                ["special-attack", 0],
+                ["special-defense", 0],
+                ["speed", 0]]
         })
+
     useEffect(() => {
         getPokemonStatblock(pokemonName);
     }, [pokemonName]);
@@ -36,9 +37,14 @@ function Statblock({ pokemonName }: Props) {
 
     return (
         <div>
-            <div>
-                {Object.entries(pokemonStats.stats).map(([key, value]) => <p>{key} : {value}</p>)}
-            </div>
+
+            {Object.entries(pokemonStats.stats).map(([key, value]) => (
+                <div>
+                    <label key={key + "label"} > {key} : {value} </label>
+                    <progress key={key + "progress"} max="255" value={pokemonStats.stats[key]} />
+                </div>
+
+            ))}
         </div>);
 }
 
