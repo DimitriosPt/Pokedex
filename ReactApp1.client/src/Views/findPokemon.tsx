@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import TypesList, { WeakTypesList } from './typeList';
 
 interface Pokemon
@@ -87,10 +87,12 @@ function FindPokemon({ pokemonName }: Props)
 
     const [strongTypes, setStrongTypes] = useState<string[]>([]);
 
-    const [isLoading, setIsLoading] = useState(true);
+    let isLoading = useRef(true);
 
     useEffect(() =>
     {
+        
+
         const controller = new AbortController();
 
         getPokemonDataFromName(pokemonName, controller.signal);
@@ -108,15 +110,17 @@ function FindPokemon({ pokemonName }: Props)
 
     async function getPokemonDataFromName(pokemonName: string, abortSignal: AbortSignal)
     {
-        setIsLoading(true);
+        isLoading.current = true;
+
         const response = await fetch(`findPokemon/${pokemonName}`, { signal: abortSignal });
 
         if (response.ok)
         {
             const data = await response.json();
             console.log(data);
+            isLoading.current = false;
             setPokemon(data as Pokemon);
-            setIsLoading(false);
+            
         } else
         {
             // Handle the case when the response is not valid
@@ -147,7 +151,7 @@ function FindPokemon({ pokemonName }: Props)
 
     return (
         <>
-            {isLoading ? <></> : <>
+            {isLoading.current ? <></> : <>
                 <div>
                     <h1 id="tableLabel">{pokemon.name}</h1>
                     {pokemon.types.map((type, index) => (
