@@ -1,5 +1,5 @@
 import '../Styles/Statblock.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 interface Statblock {
     name: string;
@@ -10,7 +10,10 @@ interface Props {
     pokemonName: string;
 }
 
-function Statblock({ pokemonName }: Props) {
+function Statblock({ pokemonName }: Props)
+{
+
+    const isLoading = useRef(true);
 
     const [pokemonStats, setStats] = useState<Statblock>(
     {
@@ -25,8 +28,6 @@ function Statblock({ pokemonName }: Props) {
         }
         })
 
-    const [isLoading, setIsLoading] = useState(true);
-
 
     useEffect(() => {
         getPokemonStatblock(pokemonName);
@@ -35,23 +36,26 @@ function Statblock({ pokemonName }: Props) {
 
     async function getPokemonStatblock(pokemonName: string)
     {
-        setIsLoading(true);
-        const response = await fetch(`pokemonstats/${pokemonName}`);
+        isLoading.current = true;
+        const abortController = new AbortController();
+        const signal = abortController.signal;
+
+        const response = await fetch(`pokemonstats/${pokemonName}`, { signal: signal });
 
         if (response.ok)
         {
             const data = await response.json();
 
             console.log(data);
+            isLoading.current = false;
             setStats(data as Statblock);
-            setIsLoading(false);
         }
 
     }
 
     return (
         <div>
-            {isLoading ? <></> :
+            {isLoading.current ? <></> :
                 <>
                     {
                         Object.entries(pokemonStats.stats).map(([key, value]) => (

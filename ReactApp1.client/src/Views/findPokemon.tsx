@@ -92,8 +92,6 @@ function FindPokemon({ pokemonName }: Props)
 
     useEffect(() =>
     {
-        
-
         const controller = new AbortController();
 
         getPokemonDataFromName(pokemonName, controller.signal);
