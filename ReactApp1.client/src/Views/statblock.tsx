@@ -37,10 +37,8 @@ function Statblock({ pokemonName }: Props)
     async function getPokemonStatblock(pokemonName: string)
     {
         isLoading.current = true;
-        const abortController = new AbortController();
-        const signal = abortController.signal;
 
-        const response = await fetch(`pokemonstats/${pokemonName}`, { signal: signal });
+        const response = await fetch(`pokemonstats/${pokemonName}`);
 
         if (response.ok)
         {
@@ -50,7 +48,6 @@ function Statblock({ pokemonName }: Props)
             isLoading.current = false;
             setStats(data as Statblock);
         }
-
     }
 
     return (
