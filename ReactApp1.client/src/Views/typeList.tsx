@@ -32,8 +32,12 @@ export function WeakTypesList({ typesAndValues }: Props) {
         <div style={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
             {Array.from(typesAndValues.entries()).map(([type, value], index) => (
                 <>
-                    <ElementIcon typeName={type} key={index} />
-                    <p key={index} style={{ marginRight: '10px' }}>{`x${value}`}</p>
+                    <div key={value + type} style={{ display: 'inline-block', justifyContent: 'center', alignContent: 'center' }}>
+                        <ElementIcon typeName={type} key={index} />
+                    </div>
+                    <div key={value + type} style={{ display: 'inline-block', justifyContent: 'center', alignContent: 'center' }}>
+                        <p key={index} style={{ marginLeft: '5px' }}>{`x${value}`}</p>
+                    </div>
                 </>
 
                 /*<p key={index} style={{ marginRight: '10px' }}>{`${type}: ${value}x`}</p>*/

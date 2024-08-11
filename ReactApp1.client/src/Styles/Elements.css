@@ -2,33 +2,6 @@
     A collection of colors for the different elemental types of Pokemon.
 */
 
-.normal {
-    color: #C4C8C9;
-    accent-color: #FCFDFD
-}
-
-.electric {
-    color: gold;
-    accent-color: #BF9A1A
-}
-
-.dragon {
-    color: #44127D;
-    accent-color: #BAB9BF;
-}
-
-.ghost {
-    color: #67606F;
-    accent-color: #8A6FA8;
-}
-
-.ground {
-    color: #504B43;
-    accent-color: #837B6C;
-    background-color: #E0D4B1;
-    border-color: #837B6C;
-}
-
 .elementIcon {
     height: 12px;
     width: 50px;
@@ -36,8 +9,9 @@
     border-width: 2px;
     text-align: center;
     font-family: "Pixelify Sans", sans-serif;
+    letter-spacing: 1px; /* Added to increase space between characters */
     font-optical-sizing: auto;
-    font-weight: 50;
+    font-weight: 10;
     font-style: normal;
     font-size: 12px;
     overflow: hidden;
@@ -58,3 +32,70 @@
     font-style: normal;
     resize: none;
 }
+
+
+
+.dragon {
+    color: #44127D;
+    accent-color: #BAB9BF;
+}
+
+.electric {
+    color: gold;
+    accent-color: #BF9A1A
+}
+
+.fairy {
+    color: #F8DBF3;
+    background-color: #F4B1F4;
+    accent-color: #F4B1F4;
+}
+
+.fire {
+    color: #A81010;
+    background-color: #DD5C17;
+    accent-color: #FFD700;
+}
+
+.flying {
+    background-color: #5BC2F7;
+    color: #E2EFF4;
+    accent-color: #FCFDFD;
+    text-shadow: -1px -1px 0 #8D969B, 1px -1px 0 #A9AEAF, -1px 1px 0 #A9AEAF, 1px 1px #A9AEAF;
+}
+
+.ghost {
+    color: #67606F;
+    accent-color: #8A6FA8;
+}
+
+.ground {
+    color: #504B43;
+    background-color: #E0D4B1;
+    border-color: #837B6C;
+}
+
+.ice {
+    background-color: #BFFAF9;
+    color: #6DD3F5;
+    accent-color: #B3E1F5;
+    text-shadow: -1px -1px 0 #878989, 1px -1px 0 #878989, -1px 1px 0 #878989, 1px 1px #878989;
+}
+
+.normal {
+    color: #C4C8C9;
+    accent-color: #FCFDFD
+}
+
+.poison{
+    color: #6B2F8A;
+    background-color: #A040A1;
+    accent-color: #A040A1;
+}
+
+.psychic {
+    color: #817587;
+    background-color: #D775CE;
+    accent-color: #F95587;
+}
+
