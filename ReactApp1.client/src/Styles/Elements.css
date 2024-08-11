@@ -46,6 +46,8 @@
     color: #F1F1D4;
     background-color: #E7CE1D;
     accent-color: #BF9A1A;
+    font-size: 9px;
+    padding: 2px 0px 3px 0px;
     text-shadow: -1px -1px 0 #8D969B, 1px -1px 0 #A9AEAF, -1px 1px 0 #A9AEAF, 1px 1px #A9AEAF;
 }
 
