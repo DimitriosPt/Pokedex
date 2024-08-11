@@ -1,5 +1,5 @@
 import '../Styles/Statblock.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 interface Statblock {
     name: string;
@@ -10,43 +10,63 @@ interface Props {
     pokemonName: string;
 }
 
-function Statblock({ pokemonName }: Props) {
+function Statblock({ pokemonName }: Props)
+{
+
+    const isLoading = useRef(true);
 
     const [pokemonStats, setStats] = useState<Statblock>(
-        {
-            name: "pikachu",
-            stats: {
-                hp: 0,
-                attack: 0,
-                defense: 0,
-                "special-attack": 0,
-                "special-defense": 0,
-                speed: 0
-            }
+    {
+        name: "",
+        stats: {
+            hp: 0,
+            attack: 0,
+            defense: 0,
+            "special-attack": 0,
+            "special-defense": 0,
+            speed: 0
+        }
         })
+
 
     useEffect(() => {
         getPokemonStatblock(pokemonName);
+
     }, [pokemonName]);
 
-    async function getPokemonStatblock(pokemonName: string) {
-        const response = await fetch(`pokemonstats/${pokemonName}`);
-        const data = await response.json();
+    async function getPokemonStatblock(pokemonName: string)
+    {
+        isLoading.current = true;
+        const abortController = new AbortController();
+        const signal = abortController.signal;
 
-        console.log(data);
-        setStats(data as Statblock);
+        const response = await fetch(`pokemonstats/${pokemonName}`, { signal: signal });
+
+        if (response.ok)
+        {
+            const data = await response.json();
+
+            console.log(data);
+            isLoading.current = false;
+            setStats(data as Statblock);
+        }
+
     }
 
     return (
         <div>
+            {isLoading.current ? <></> :
+                <>
+                    {
+                        Object.entries(pokemonStats.stats).map(([key, value]) => (
+                            <div>
+                                <label className="stat-label" key={key + "label"} > {key} : {value} </label>
+                                <progress className="stat-progress" key={key + "progress"} max="255" value={pokemonStats.stats[key]} />
+                            </div>
 
-            {Object.entries(pokemonStats.stats).map(([key, value]) => (
-                <div>
-                    <label className="stat-label" key={key + "label"} > {key} : {value} </label>
-                    <progress className="stat-progress" key={key + "progress"} max="255" value={pokemonStats.stats[key]} />
-                </div>
-
-            ))}
+                        ))
+                    }
+                </>}
         </div>);
 }
 

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import ElementIcon from './elementIcon';
 
 interface Props {
     typesList: string[];
@@ -14,9 +15,10 @@ export function TypesList({ typesList }: Props) {
     }, [typesList]);
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
-            {types?.map((type, index) => {
-                return <p key={index} style={{ marginRight: '10px' }}>{type}</p>;
+        <div style={{ display: 'flex', justifyContent: 'center', alignContent: 'center'}}>
+            {types?.map((type, index) =>
+            {
+                return <div key={type + index + "typeItem"} style={{ marginRight: '5px' }}><ElementIcon typeName={type} key={index} /></div>;
             })}
         </div>
     );
@@ -30,7 +32,14 @@ export function WeakTypesList({ typesAndValues }: Props) {
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
             {Array.from(typesAndValues.entries()).map(([type, value], index) => (
-                <p key={index} style={{ marginRight: '10px' }}>{`${type}: ${value}x`}</p>
+                <>
+                    <div key={value + type + "_elementIcon"} style={{ display: 'inline-block', justifyContent: 'center', alignContent: 'center' }}>
+                        <ElementIcon typeName={type} key={index} />
+                    </div>
+                    <div key={value + type + "_multiplier"} style={{ display: 'inline-block', justifyContent: 'center', alignContent: 'center', marginRight: '7px' }}>
+                        <p key={index} style={{ marginLeft: '1px' }}>{`x${value}`}</p>
+                    </div>
+                </>
             ))}
         </div>
     );
