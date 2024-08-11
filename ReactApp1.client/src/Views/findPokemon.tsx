@@ -155,9 +155,7 @@ function FindPokemon({ pokemonName }: Props)
             {isLoading.current ? <></> : <>
                 <div>
                     <h1 id="tableLabel">{pokemon.name}</h1>
-                    {pokemon.types.map((type, index) => (
-                        <p key={index}>{type}</p>
-                    ))}
+                    <TypesList typesList={pokemon.types}/>
                     <img src={pokemon.spriteURL} />
 
                     <h4>Strong Against:</h4>

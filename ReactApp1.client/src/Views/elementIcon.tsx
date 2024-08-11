@@ -14,7 +14,7 @@ function ElementIcon({ typeName }: Props)
     }, [typeName]);
 
     return (
-        <textarea className={typeName +" elementIcon"} readOnly={true} value={typeName} wrap="hard"> </textarea>
+        <textarea className={typeName + " elementIcon"} readOnly={true} value={typeName.toUpperCase()} wrap="hard"> </textarea>
     );
 }
 
