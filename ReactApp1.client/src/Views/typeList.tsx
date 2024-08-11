@@ -17,7 +17,7 @@ export function TypesList({ typesList }: Props) {
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
             {types?.map((type, index) => {
-                return <p key={index} style={{ marginRight: '10px' }}>{type}</p>;
+                return <ElementIcon typeName={type} key={index} />;
             })}
         </div>
     );
@@ -32,15 +32,13 @@ export function WeakTypesList({ typesAndValues }: Props) {
         <div style={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
             {Array.from(typesAndValues.entries()).map(([type, value], index) => (
                 <>
-                    <div key={value + type} style={{ display: 'inline-block', justifyContent: 'center', alignContent: 'center' }}>
+                    <div key={value + type + "_elementIcon"} style={{ display: 'inline-block', justifyContent: 'center', alignContent: 'center' }}>
                         <ElementIcon typeName={type} key={index} />
                     </div>
-                    <div key={value + type} style={{ display: 'inline-block', justifyContent: 'center', alignContent: 'center' }}>
+                    <div key={value + type + "_multiplier"} style={{ display: 'inline-block', justifyContent: 'center', alignContent: 'center' }}>
                         <p key={index} style={{ marginLeft: '5px' }}>{`x${value}`}</p>
                     </div>
                 </>
-
-                /*<p key={index} style={{ marginRight: '10px' }}>{`${type}: ${value}x`}</p>*/
             ))}
         </div>
     );
