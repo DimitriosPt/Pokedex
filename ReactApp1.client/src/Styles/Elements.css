@@ -52,14 +52,14 @@
 }
 
 .fairy {
-    color: #F8DBF3;
-    background-color: #F4B1F4;
+    color: #ba7fb8;
+    background-color: #dcb0d3;
     accent-color: #F4B1F4;
 }
 
 .fighting {
-    color: #A81010;
-    background-color: #BEA15F;
+    color: #ef8931;
+    background-color: #af5a4e;
     accent-color: #FFD700;
     font-size: 9px;
     padding: 2px 0px 3px 0px;
@@ -91,9 +91,9 @@
 }
 
 .ground {
-    color: #A54E05;
-    background-color: #B1835F;
-    border-color: #837B6C;
+    color: #a37c42;
+    background-color: #cfb363;
+    border-color: #837b6c;
     text-shadow: -1px -1px 0 #7D8686, 1px -1px 0 #7D8686, -1px 1px 0 #7D8686, 1px 1px #7D8686;
 }
 
@@ -119,22 +119,23 @@
 }
 
 .psychic {
-    color: #817587;
-    background-color: #D775CE;
+    color: #dc4c7a;
+    background-color: #f17da4;
     accent-color: #F95587;
-    font-size: 11px;
-    padding: 1px 0px 4px 0px;
+    font-size: 10px;
+    padding: 2px 0px 3px 1px;
 }
 
 .rock {
-    color: #7D8686;
-    background-color: #866C39;
+    color: #89532a;
+    background-color: #cfb363;
     accent-color: #B3A125;
 }
 
 .steel {
     color: #7D8686;
     background-color: #D3D3D4;
+
     accent-color: #B3B3B3;
 }
 
