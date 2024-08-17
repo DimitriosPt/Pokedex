@@ -44,7 +44,6 @@ function Statblock({ pokemonName }: Props)
         {
             const data = await response.json();
 
-            console.log(data);
             isLoading.current = false;
             setStats(data as Statblock);
         }
@@ -56,13 +55,17 @@ function Statblock({ pokemonName }: Props)
                 <>
                     {
                         Object.entries(pokemonStats.stats).map(([key, value]) => (
-                            <div>
+                            <div key={key + "_stat"}>
                                 <label className="stat-label" key={key + "label"} > {key} : {value} </label>
                                 <progress className="stat-progress" key={key + "progress"} max="255" value={pokemonStats.stats[key]} />
                             </div>
 
                         ))
                     }
+
+                    <div key={pokemonName + '_statTotals'}>
+                        <label className="stat-label" key={pokemonName + "label"} > Total : {Object.values(pokemonStats.stats).reduce((acc, cur) => acc + cur)} </label>
+                    </div>
                 </>}
         </div>);
 }
