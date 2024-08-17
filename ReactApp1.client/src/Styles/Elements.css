@@ -27,7 +27,6 @@
     color: #4E6A1D;
     background-color: #8CB230;
     accent-color: #8CB230;
-
 }
 
 .dark {
@@ -49,6 +48,12 @@
     font-size: 9px;
     padding: 2px 0px 3px 0px;
     text-shadow: -1px -1px 0 #8D969B, 1px -1px 0 #A9AEAF, -1px 1px 0 #A9AEAF, 1px 1px #A9AEAF;
+}
+
+.electriclabel {
+    background: linear-gradient(red, yellow, blue);
+    accent-color: #BF9A1A;
+    text-shadow: -1px -1px 0 #514F2F, 0 -1px 0 #514F2F, 1px -1px 0 #514F2F, 1px 0 0 #514F2F, 1px 1px 0 #514F2F, 0 1px 0 #514F2F, -1px 1px 0 #514F2F, -1px 0 0 #514F2F;
 }
 
 .fairy {
@@ -143,5 +148,20 @@
     color: #F1F5F5;
     background-color: #009edb;
     text-shadow: -1px -1px 0 #7D8686, 1px -1px 0 #7D8686, -1px 1px 0 #7D8686, 1px 1px #7D8686;
+}
+
+#pokemonLabel {
+    background-color: transparent;
+    font-size: 24px;
+    letter-spacing: 1px;
+    font-optical-sizing: auto;
+    font-style: normal;
+    overflow: hidden;
+    vertical-align: middle;
+    resize: none;
+    align-items: center;
+    margin: 5px;
+    padding: 0px 0px 5px 0px;
+    text-shadow: -1px -1px 0 #D3D3D4, 1px -1px 0 #D3D3D4, -1px 1px 0 #D3D3D4, 1px 1px #D3D3D4;
 }
 

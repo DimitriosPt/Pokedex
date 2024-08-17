@@ -1,5 +1,4 @@
-/* eslint-disable prefer-const */
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 interface Pokemon
 {
@@ -25,20 +24,20 @@ interface Props
     children?: React.ReactNode;
 }
 
-
 function DisplayPokemon({ pokemonToRender, children }: Props)
 {
     const [pokemon, setPokemon] = useState<Pokemon>({ name: "", types: [""], TypeRelations: [] });
 
     useEffect(() =>
     {
+
         setPokemon(pokemonToRender);
     }, [pokemonToRender]);
 
     return (
         <>
             <div>
-                <h1 id="tableLabel">{pokemon.name}</h1>
+                <h1 className={pokemon.types.join(" ")} id="pokemonLabel" >{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h1>
                 <img src={pokemon.spriteURL} />
 
                 {children}
