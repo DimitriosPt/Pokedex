@@ -96,17 +96,16 @@ function App()
                 <p>Enter a pokemon to start</p> :
                     <DisplayPokemon pokemonToRender={foundPokemon}>
                         <TypesList typesList={foundPokemon.types} />
-                    <h4>Strong Against:</h4>
-                    <TypesList typesList={foundPokemon.TypeRelations.flatMap(tr => tr.typeAdvantages)} />
+                        <h4>Strong Against:</h4>
+                        <TypesList typesList={foundPokemon.TypeRelations.flatMap(tr => tr.typeAdvantages)} />
 
-                        {/*<h4>Immune to:</h4>*/}
-                        {/*<TypesList typesList={Array.from(new Set(foundPokemon.TypeRelations.flatMap(type => type.typeImmunities)))} />*/}
+                            {/*<h4>Immune to:</h4>*/}
+                            {/*<TypesList typesList={Array.from(new Set(foundPokemon.TypeRelations.flatMap(type => type.typeImmunities)))} />*/}
 
-                    <h4>Weak Against:</h4>
-                    <WeakTypesList key={foundPokemon.name + '_weaknesses'} typesList={foundPokemon.TypeRelations.map(typeRelationshipTable => typeRelationshipTable.type)} />
+                        <h4>Weak Against:</h4>
+                        <WeakTypesList key={foundPokemon.name + '_weaknesses'} typesList={foundPokemon.TypeRelations.map(typeRelationshipTable => typeRelationshipTable.type)} />
 
-                    <Statblock key={foundPokemon.name + '_statblock'} pokemonName={foundPokemon.name} />
-
+                        <Statblock key={foundPokemon.name + '_statblock'} pokemonName={foundPokemon.name} />
                     </DisplayPokemon>
             }
         </div>
