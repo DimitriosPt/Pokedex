@@ -24,8 +24,6 @@ interface Props
     searchedName: string;
 }
 
-
-
 function FindPokemon({ searchedName }: Props)
 {
     const [pokemon, setPokemon] = useState<Pokemon>({ name: "", types: [""] });
@@ -58,13 +56,18 @@ function FindPokemon({ searchedName }: Props)
 
         async function getPokemonDataFromName(name: string)
         {
-            const response = await fetch(`findPokemon/${name}`);
+            let controller = new AbortController();
+            let abortSignal = controller.signal;
+
+            const response = await fetch(`findPokemon/${name}`, { signal: abortSignal });
 
             if (response.ok)
             {
                 const data = await response.json();
                 await updateMatchups(data as Pokemon).then(() => setPokemon(data as Pokemon));
             }
+
+            return () => { controller.abort(); }
         }
 
         getPokemonDataFromName(searchedName);
