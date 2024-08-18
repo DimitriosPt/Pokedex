@@ -36,9 +36,9 @@ function DisplayPokemon({ pokemonToRender, children }: Props)
 
     return (
         <>
-            <div>
-                <h1 className={pokemon.types.join(" ")} id="pokemonLabel" >{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h1>
-                <img src={pokemon.spriteURL} />
+            <div key={`display_${pokemon.name}`}>
+                <h1 className={pokemon.types.join(" ")} id="pokemonLabel" style={{ marginBottom: "0" }}>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h1>
+                <img src={pokemon.spriteURL} style={{ marginTop: "-20px", marginBottom:"-20px" }} />
 
                 {children}
 
