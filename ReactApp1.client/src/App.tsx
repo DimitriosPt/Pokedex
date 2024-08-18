@@ -3,6 +3,7 @@ import './App.css';
 import DisplayPokemon from './Views/DisplayPokemon';
 import Statblock from './Views/statblock';
 import { TypesList, WeakTypesList } from './Views/typeList';
+import CollapsableFrame from './Views/collapsableFrame';
 
 function App()
 {
@@ -68,12 +69,13 @@ function App()
     } : {};
 
     return (
-        <div>
+        <>
             <input type="text" onChange={e => updateSearch(e.target.value)} style={invalidSearchStyle} title={invalidSearchStyle.title} />
 
             {foundPokemon === undefined ?
                 <p>Enter a pokemon to start</p> :
-                    <DisplayPokemon pokemonToRender={foundPokemon}>
+                <DisplayPokemon pokemonToRender={foundPokemon}>
+                    <CollapsableFrame>
                         <TypesList typesList={foundPokemon.types} />
                         <h4>Strong Against:</h4>
                         <TypesList typesList={foundPokemon.TypeRelations.flatMap(tr => tr.typeAdvantages)} />
@@ -85,9 +87,11 @@ function App()
                         <WeakTypesList key={foundPokemon.name + '_weaknesses'} typesList={foundPokemon.TypeRelations.map(typeRelationshipTable => typeRelationshipTable.type)} />
 
                         <Statblock key={foundPokemon.name + '_statblock'} pokemonName={foundPokemon.name} />
-                    </DisplayPokemon>
+                    </CollapsableFrame>
+                </DisplayPokemon>
             }
-        </div>
+        </>
+
     );
 }
 
