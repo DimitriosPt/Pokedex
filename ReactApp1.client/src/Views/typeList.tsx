@@ -105,14 +105,13 @@ export function WeakTypesList({ typesList }: Props)
 
             return allWeaknesses;
         }
-
-
+        
         populateTypeTables(typesList).then((typeData) => DetermineWeaknesses(typeData).then(((weaknessesAndVals) => setWeaknessesAndValues(weaknessesAndVals))));
 
     }, [typesList]);
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
+        <div key={typesList.join(",") + "_weaknesses"} style={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
             {Array.from(weaknessesAndValues.entries()).map(([type, value], index) => (
                 <>
                     <div key={value + type + "_elementIcon"} style={{ display: 'inline-block', justifyContent: 'center', alignContent: 'center' }}>
