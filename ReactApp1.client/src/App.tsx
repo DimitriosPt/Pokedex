@@ -67,27 +67,6 @@ function App()
         title: search + ' was not found'
     } : {};
 
-    //async function updateMatchups(pokemon: Pokemon)
-    //{
-    //    const pokemonTypes = pokemon.types;
-    //    let allStrongTypes: string[] = [];
-    //    const typeDataTable: TypeRelationTable[] = [];
-
-    //    await Promise.all(pokemonTypes.map(async (type, index) =>
-    //    {
-    //        const typeIDData = await fetch(`typelookup/${type}`);
-    //        typeDataTable[index] = await typeIDData.json() as TypeRelationTable;
-
-    //        const doubleDamageTo = typeDataTable[index].typeAdvantages;
-
-    //        allStrongTypes = allStrongTypes.concat(doubleDamageTo);
-    //    }));
-
-    //    typeData.current = typeDataTable;
-
-    //    strongTypes.current = Array.from(new Set(allStrongTypes));
-    //}
-
     return (
         <div>
             <input type="text" onChange={e => updateSearch(e.target.value)} style={invalidSearchStyle} title={invalidSearchStyle.title} />
@@ -99,8 +78,8 @@ function App()
                         <h4>Strong Against:</h4>
                         <TypesList typesList={foundPokemon.TypeRelations.flatMap(tr => tr.typeAdvantages)} />
 
-                            {/*<h4>Immune to:</h4>*/}
-                            {/*<TypesList typesList={Array.from(new Set(foundPokemon.TypeRelations.flatMap(type => type.typeImmunities)))} />*/}
+                        <h4>Immune to:</h4>
+                        <TypesList typesList={Array.from(new Set(foundPokemon.TypeRelations.flatMap(type => type.typeImmunities)))} />
 
                         <h4>Weak Against:</h4>
                         <WeakTypesList key={foundPokemon.name + '_weaknesses'} typesList={foundPokemon.TypeRelations.map(typeRelationshipTable => typeRelationshipTable.type)} />
