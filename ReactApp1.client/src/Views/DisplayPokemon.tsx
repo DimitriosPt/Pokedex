@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import '../Styles/Utility.css';
 
 interface Pokemon
 {
@@ -30,7 +31,6 @@ function DisplayPokemon({ pokemonToRender, children }: Props)
 
     useEffect(() =>
     {
-
         setPokemon(pokemonToRender);
     }, [pokemonToRender]);
 
@@ -41,7 +41,6 @@ function DisplayPokemon({ pokemonToRender, children }: Props)
                 <img src={pokemon.spriteURL} style={{ marginTop: "-20px", marginBottom:"-20px" }} />
 
                 {children}
-
             </div>
         </>
     );

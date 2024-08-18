@@ -33,6 +33,7 @@ function CollapsablePokemonFrame({ children, pokemonToRender}: Props)
 
     return (
         <div
+            className='hoverable'
             {...getToggleProps({
             onClick: () => setExpanded((prevExpanded) => !prevExpanded),
         })}>
