@@ -3,6 +3,11 @@
     public class Pokemon
     {
         /// <summary>
+        /// Gets the pokemon's ID number.
+        /// </summary>
+        public int ID { get; set; }
+
+        /// <summary>
         /// Gets the pokemon's name.
         /// </summary>
         public string Name { get; set; }
@@ -30,6 +35,7 @@
             Name = name;
             Types = types;
             SpriteURL = null;
+            ID = 1;
         }
 
     }

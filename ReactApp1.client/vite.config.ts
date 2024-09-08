@@ -43,12 +43,12 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            '^/weather': {
+
+            '^/findPokemon': {
                 target,
                 secure: false
             },
-
-            '^/findPokemon': {
+            '^/allPokemon': {
                 target,
                 secure: false
             },
@@ -63,9 +63,7 @@ export default defineConfig({
             '^/typelookup': {
                 target,
                 secure: false
-            }
-
-
+            },
         },
         port: 5173,
         https: {

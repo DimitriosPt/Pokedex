@@ -38,5 +38,11 @@ namespace pokedex.Server.Services.Interfaces
         /// <param name="id">The human readable name like "fire" or "normal"</param>
         /// <returns>The numeric key that aligns with the element.</returns>
         public Task<int> GetTypeID(string typeName);
+
+        /// <summary>
+        /// Gets all the pokemon from the API.
+        /// </summary>
+        /// <returns>An IList of pokemon.</returns>
+        public Task<IList<Pokemon>> GetAllPokemon();
     }
 }
