@@ -1,13 +1,25 @@
 /* eslint-disable prefer-const */
 import { useEffect, useState } from 'react';
 import InfiniteScroll from "react-infinite-scroll-component";
+import DisplayPokemon from './DisplayPokemon';
+import CollapsablePokemonFrame from './CollapsablePokemonFrame';
 
+interface TypeRelationTable
+{
+    id: string,
+    type: string,
+    typeAdvantages: string[],
+    typeDisadvantages: string[],
+    typeResistances: string[],
+    typeImmunities: string[];
+}
 
 interface Pokemon
 {
     name: string;
     types: string[];
     spriteURL?: string;
+    TypeRelations: TypeRelationTable[];
     id: number;
 }
 
@@ -29,14 +41,14 @@ function PokedexScroller()
 
     return (
         <InfiniteScroll
-            dataLength={allPokemon.length}
+            dataLength={1000}
             next={() => { }}
             hasMore={false}
             loader={<h4>Loading...</h4>}>
 
             {allPokemon?.map((pokemon) => (
-                <div key={pokemon.id}> {pokemon.name}
-                    <img src={pokemon.spriteURL} />
+                <div key={pokemon.id}>
+                    <CollapsablePokemonFrame pokemonToRender={pokemon} />
                 </div>
             ))}
         </InfiniteScroll>
