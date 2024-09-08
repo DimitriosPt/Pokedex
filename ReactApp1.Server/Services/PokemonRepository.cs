@@ -15,6 +15,7 @@ namespace pokedex.Server.Services
         private string pokemonEndPoint = "https://pokeapi.co/api/v2/pokemon/";
 
         private string typesEndPoint = "https://pokeapi.co/api/v2/type/";
+
         private List<Pokemon> allPokemonList;
 
         /// <summary>
@@ -243,18 +244,11 @@ namespace pokedex.Server.Services
                 Pokemon[] pokemonDataArray = await Task.WhenAll(tasks);
 
                 pokemonList.AddRange(pokemonDataArray);
-                //foreach (var pokemonMetadata in pokemonArray)
-                //{
-                //    string pokemonName = pokemonMetadata["name"]?.ToString() ?? string.Empty;
-                //    Pokemon pokemonData = await this.GetPokemon(pokemonName);
-
-                //    pokemonList.Add(pokemonData);
-                //};
 
                 // Cache the list of all pokemon so we never need to fetch it again.
-                this.allPokemonList = pokemonList.OrderBy(x => x.ID).ToList();
+                this.allPokemonList = pokemonList;
 
-                return pokemonList;
+                return this.allPokemonList;
             }
         }
     }

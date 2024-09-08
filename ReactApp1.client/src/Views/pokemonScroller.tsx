@@ -1,7 +1,6 @@
 /* eslint-disable prefer-const */
 import { useEffect, useState } from 'react';
 import InfiniteScroll from "react-infinite-scroll-component";
-import DisplayPokemon from './DisplayPokemon';
 import CollapsablePokemonFrame from './CollapsablePokemonFrame';
 
 interface TypeRelationTable

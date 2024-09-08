@@ -63,9 +63,7 @@ export default defineConfig({
             '^/typelookup': {
                 target,
                 secure: false
-            }
-
-
+            },
         },
         port: 5173,
         https: {
