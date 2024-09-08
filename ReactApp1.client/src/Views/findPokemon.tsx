@@ -24,8 +24,6 @@ interface Props
     searchedName: string;
 }
 
-
-
 function FindPokemon({ searchedName }: Props)
 {
     const [pokemon, setPokemon] = useState<Pokemon>({ name: "", types: [""] });

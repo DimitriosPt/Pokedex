@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import './App.css';
 import FindPokemon from './Views/findPokemon';
 import Statblock from './Views/statblock';
+import PokedexScroller from './Views/pokemonScroller';
 
 function App()
 {
@@ -41,6 +42,8 @@ function App()
                     </div>
                 </div>
             }
+
+            <PokedexScroller />
         </div>
     );
 }
