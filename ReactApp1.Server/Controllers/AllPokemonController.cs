@@ -1,29 +1,30 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
 using pokedex.Server.Services.Interfaces;
-using System.Net;
 
-namespace ReactApp1.Server.Controllers
+namespace pokedex.Server.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class FindPokemonController : ControllerBase
+    public class AllPokemonController : Controller
     {
         /// <summary>
         /// Private backer for the pokemon data source.
         /// </summary>
         private readonly IPokemonRepository _pokemonRepository;
 
-        public FindPokemonController(IPokemonRepository pokemonRepository)
+        /// <summary>
+        /// Creates a new instance of the <see cref="AllPokemonController"/>.
+        /// </summary>
+        /// <param name="pokemonRepository"></param>
+        public AllPokemonController(IPokemonRepository pokemonRepository)
         {
             _pokemonRepository = pokemonRepository;
         }
 
-        [HttpGet("{name}")]
-        public async Task<IActionResult> Get(string name)
+        [HttpGet()]
+        public async Task<IActionResult> Get()
         {
-            var returnedPokemon = await _pokemonRepository.GetPokemon(name);
+            var returnedPokemon = await _pokemonRepository.GetAllPokemon();
 
             if (returnedPokemon == null)
             {

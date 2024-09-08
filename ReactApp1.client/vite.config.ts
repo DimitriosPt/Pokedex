@@ -43,12 +43,12 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            '^/weather': {
+
+            '^/findPokemon': {
                 target,
                 secure: false
             },
-
-            '^/findPokemon': {
+            '^/allPokemon': {
                 target,
                 secure: false
             },
