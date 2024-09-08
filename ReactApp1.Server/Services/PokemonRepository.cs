@@ -15,6 +15,7 @@ namespace pokedex.Server.Services
         private string pokemonEndPoint = "https://pokeapi.co/api/v2/pokemon/";
 
         private string typesEndPoint = "https://pokeapi.co/api/v2/type/";
+        private List<Pokemon> allPokemonList;
 
         /// <summary>
         /// Attempts to retrieve Pokemon data from the API using the provided name.
@@ -207,6 +208,11 @@ namespace pokedex.Server.Services
         {
             int pokemonLimit = 1000;
 
+            if (this.allPokemonList != null)
+            {
+                return this.allPokemonList;
+            }
+
             using (var client = new HttpClient())
             {
                 string pokemonEndPoint = $"https://pokeapi.co/api/v2/pokemon?limit={pokemonLimit}";
@@ -235,6 +241,9 @@ namespace pokedex.Server.Services
 
                     pokemonList.Add(pokemonData);
                 }
+
+                // Cache the list of all pokemon so we never need to fetch it again.
+                this.allPokemonList = pokemonList;
 
                 return pokemonList;
             }
