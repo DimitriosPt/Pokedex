@@ -198,5 +198,46 @@ namespace pokedex.Server.Services
                 return new TypeRelationTable(id, typeName, advantages, disadvantages, resistances, immunities);
             }
         }
+
+        /// <summary>
+        /// Gets a list of all the pokemon in the API.
+        /// </summary>
+        /// <returns>An IList containing all the pokemon.</returns>
+        public async Task<IList<Pokemon>> GetAllPokemon()
+        {
+            int pokemonLimit = 1000;
+
+            using (var client = new HttpClient())
+            {
+                string pokemonEndPoint = $"https://pokeapi.co/api/v2/pokemon?limit={pokemonLimit}";
+                var response = await client.GetAsync(pokemonEndPoint);
+
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return null;
+                }
+
+                var json = await response.Content.ReadAsStringAsync();
+
+                var parsedJson = JObject.Parse(json);
+
+                var pokemonArray = parsedJson?["results"]?.ToArray() ?? new JToken[0];
+
+                List<Pokemon> pokemonList = new List<Pokemon>();
+
+                foreach (var pokemon in pokemonArray)
+                {
+                    string name = pokemon["name"]?.ToString() ?? string.Empty;
+
+                    List<string> types = new List<string>();
+
+                    var pokemonData = new Pokemon(name, types);
+
+                    pokemonList.Add(pokemonData);
+                }
+
+                return pokemonList;
+            }
+        }
     }
 }
