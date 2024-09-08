@@ -42,9 +42,10 @@ namespace pokedex.Server.Services
 
                 var spriteUrl = parsedJson?["sprites"]?["front_default"]?.ToString() ?? string.Empty;
 
+                var idNumber = parsedJson?["id"]?.ToObject<int>() ?? 0;
                 // TODO: Implement logic to deserialize and process the Pokemon data from the JSON response
 
-                Pokemon pokemonData = new Pokemon($"{pokemonName}", types) { SpriteURL = spriteUrl };
+                Pokemon pokemonData = new Pokemon($"{pokemonName}", types) { SpriteURL = spriteUrl, ID =  idNumber};
 
                 // Return the processed Pokemon data
                 return pokemonData;
@@ -231,19 +232,27 @@ namespace pokedex.Server.Services
 
                 List<Pokemon> pokemonList = new List<Pokemon>();
 
-                foreach (var pokemon in pokemonArray)
+                var tasks = pokemonArray.Select(async (pokemonMetadata) =>
                 {
-                    string name = pokemon["name"]?.ToString() ?? string.Empty;
+                    string pokemonName = pokemonMetadata["name"]?.ToString() ?? string.Empty;
+                    Pokemon pokemonData = await this.GetPokemon(pokemonName);
 
-                    List<string> types = new List<string>();
+                    return pokemonData;
+                });
 
-                    var pokemonData = new Pokemon(name, types);
+                Pokemon[] pokemonDataArray = await Task.WhenAll(tasks);
 
-                    pokemonList.Add(pokemonData);
-                }
+                pokemonList.AddRange(pokemonDataArray);
+                //foreach (var pokemonMetadata in pokemonArray)
+                //{
+                //    string pokemonName = pokemonMetadata["name"]?.ToString() ?? string.Empty;
+                //    Pokemon pokemonData = await this.GetPokemon(pokemonName);
+
+                //    pokemonList.Add(pokemonData);
+                //};
 
                 // Cache the list of all pokemon so we never need to fetch it again.
-                this.allPokemonList = pokemonList;
+                this.allPokemonList = pokemonList.OrderBy(x => x.ID).ToList();
 
                 return pokemonList;
             }
