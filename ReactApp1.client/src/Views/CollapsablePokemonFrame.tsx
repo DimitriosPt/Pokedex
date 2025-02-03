@@ -28,7 +28,7 @@ interface Props
 
 function CollapsablePokemonFrame({ children, pokemonToRender}: Props)
 {
-    const [isExpanded, setExpanded] = useState(false);
+    const [isExpanded, setExpanded] = useState(true);
     const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
 
     return (
