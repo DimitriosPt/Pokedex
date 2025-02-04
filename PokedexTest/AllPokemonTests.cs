@@ -54,17 +54,29 @@ namespace PokedexTest
         [TestCategory(TestList.EndToEnd)]
         public void FetchAllPokemonTest_LiveTest()
         {
-            var pokemonRepository = new PokemonRepository();
+            var pokemonRepository = PokemonRepository.Instance;
 
             // Arrange
             var allPokemonController = new AllPokemonController(pokemonRepository);
 
-            var timer = Stopwatch.StartNew();
+            var firstTimer = Stopwatch.StartNew();
             // Act
             var result = allPokemonController.Get().Result as OkObjectResult;
 
-            timer.Stop();
-            // Assert
+            firstTimer.Stop();
+
+            var cachedTimer = Stopwatch.StartNew();
+
+            result = allPokemonController.Get().Result as OkObjectResult;
+
+            cachedTimer.Stop();
+
+            Assert.IsTrue(cachedTimer.ElapsedMilliseconds < firstTimer.ElapsedMilliseconds / 10);
+
+            Console.WriteLine($"First time: {firstTimer.ElapsedMilliseconds}ms, Cached time: {cachedTimer.ElapsedMilliseconds}ms");
+
+            Debug.WriteLine($"First time: {firstTimer.ElapsedMilliseconds}ms, Cached time: {cachedTimer.ElapsedMilliseconds}ms");
+
             Assert.IsNotNull(result);
             Assert.AreEqual(200, result.StatusCode);
             Assert.AreEqual(1000, (result.Value as List<Pokemon>).Count);
