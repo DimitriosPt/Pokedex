@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import InfiniteScroll from "react-infinite-scroll-component";
 import CollapsablePokemonFrame from './CollapsablePokemonFrame';
+import TypesList from './typeList';
 
 interface TypeRelationTable
 {
@@ -41,17 +42,18 @@ function PokedexScroller()
     return (
         <InfiniteScroll
             dataLength={1000}
-            next={() => { }}
             hasMore={false}
-            loader={<h4>Loading...</h4>}>
-
+            loader={<h4>Loading...</h4>}
+            next={() => { }}
+            style={{ overflow: 'hidden' }}
+        >
             {allPokemon?.map((pokemon) => (
-                <div key={pokemon.id}>
-                    <CollapsablePokemonFrame pokemonToRender={pokemon} />
-                </div>
+                <CollapsablePokemonFrame pokemonToRender={pokemon} key={pokemon.id} >
+                    <TypesList typesList={pokemon.types} />
+                </CollapsablePokemonFrame>
             ))}
         </InfiniteScroll>
-    )
+    );
 }
 
 export default PokedexScroller;

@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 // Register the PokemonRepository as a service that has a lifetime of a scoped service.
-builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();
+builder.Services.AddSingleton<IPokemonRepository, PokemonRepository>();
 
 // Register the PokemonRepository as a service that has a lifetime of a singleton service.
 // builder.Services.AddSingleton<IPokemonRepository, PokemonRepository>();
