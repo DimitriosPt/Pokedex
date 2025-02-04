@@ -87,6 +87,8 @@ function Lookup()
                     <Statblock key={foundPokemon.name + '_statblock'} pokemonName={foundPokemon.name} />
                 </CollapsablePokemonFrame>
             }
+
+            <button onClick={() => window.location.href = '/all'}>Pokedex</button>
         </>
     );
 }
