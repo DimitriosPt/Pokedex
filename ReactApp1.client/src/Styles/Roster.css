@@ -1,0 +1,24 @@
+
+/*.roster-grid {*/
+    /* Add styles for roster slots */
+    /*border-radius: 10px;
+    padding: 10px;
+    border: 2px solid #000;
+    width: 120px;
+    height: 100px;
+}*/
+
+.roster-slot {
+    /* Add styles for roster slots */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    width: 120px;
+    height: 100px;
+    fill-opacity: 0.5;
+    box-shadow: 0 0 5px #000;
+    transform: skew(7deg);
+}
