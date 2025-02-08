@@ -28,7 +28,7 @@ interface Props
 
 function DisplayPokemon({ pokemonToRender, children }: Props)
 {
-    const [pokemon, setPokemon] = useState<Pokemon>({ name: "", types: [""], TypeRelations: [] });
+    const [pokemon, setPokemon] = useState<Pokemon>({id:"-1", name: "", types: [""], TypeRelations: [] });
 
     useEffect(() =>
     {

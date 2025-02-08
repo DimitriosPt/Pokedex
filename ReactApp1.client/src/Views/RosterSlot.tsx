@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import DisplayPokemon from "./DisplayPokemon";
+import { DndContext, useDroppable } from "@dnd-kit/core";
 
 interface Pokemon
 {
@@ -20,34 +21,33 @@ interface TypeRelationTable
     typeImmunities: string[];
 }
 
-function RosterSlot()
+interface Props
 {
-    const [droppedPokemon, setDroppedPokemon] = useState<Pokemon | null>(null);
+    PokemonToSlot: Pokemon | undefined;
+    slotID: string;
+}
 
-    const handleDrop = (event: React.DragEvent<HTMLDivElement>) =>
-    {
-        event.preventDefault();
-        const droppedPokemonData = event.dataTransfer.getData("text/plain");
-        const parsedDroppedPokemon = JSON.parse(droppedPokemonData);
-        setDroppedPokemon(parsedDroppedPokemon);
-    };
+function RosterSlot({ PokemonToSlot, slotID }: Props)
+{
+    const [droppedPokemon, setDroppedPokemon] = useState<Pokemon | undefined>(undefined);
 
-    const handleDragOver = (event: React.DragEvent<HTMLDivElement>) =>
+    const { setNodeRef } = useDroppable({
+        id: slotID
+    })
+
+    useEffect(() =>
     {
-        event.preventDefault();
-    };
+        setDroppedPokemon(PokemonToSlot);
+    }, [PokemonToSlot]);
 
     return (
-        <>
-            <div
-                onDrop={handleDrop}
-                onDragOver={handleDragOver}
-            >
+        <DndContext id={slotID}>
+            <div ref={setNodeRef}>
                 {droppedPokemon ? (
                     <DisplayPokemon pokemonToRender={droppedPokemon} />
                 ) : null}
             </div>
-        </>
+        </DndContext>
     );
 }
 
