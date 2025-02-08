@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import DisplayPokemon from "./DisplayPokemon";
 import { DndContext, useDroppable } from "@dnd-kit/core";
 import CollapsablePokemonFrame from "./CollapsablePokemonFrame";
 
