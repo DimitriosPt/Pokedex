@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import DisplayPokemon from "./DisplayPokemon";
 import { DndContext, useDroppable } from "@dnd-kit/core";
+import CollapsablePokemonFrame from "./CollapsablePokemonFrame";
 
 interface Pokemon
 {
@@ -33,19 +34,22 @@ function RosterSlot({ PokemonToSlot, slotID }: Props)
 
     const { setNodeRef } = useDroppable({
         id: slotID
-    })
+    });
 
     useEffect(() =>
     {
         setDroppedPokemon(PokemonToSlot);
+        console.log("PokemonToSlot updated:", PokemonToSlot);
     }, [PokemonToSlot]);
 
     return (
         <DndContext id={slotID}>
-            <div ref={setNodeRef}>
+            <div ref={setNodeRef} >
                 {droppedPokemon ? (
-                    <DisplayPokemon pokemonToRender={droppedPokemon} />
-                ) : null}
+                    <CollapsablePokemonFrame pokemonToRender={droppedPokemon} />
+                ) : (
+                    <p>Drop a Pokemon here</p>
+                )}
             </div>
         </DndContext>
     );
