@@ -14,6 +14,7 @@ interface TypeRelationTable
 
 interface Pokemon
 {
+    id: string;
     name: string;
     types: string[];
     TypeRelations: TypeRelationTable[];
@@ -26,20 +27,21 @@ interface Props
     pokemonToRender: Pokemon;
 }
 
-function CollapsablePokemonFrame({ children, pokemonToRender}: Props)
+function CollapsablePokemonFrame({ children, pokemonToRender }: Props)
 {
     const [isExpanded, setExpanded] = useState(true);
     const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
+
+
 
     return (
         <div
             className='hoverable'
             {...getToggleProps({
-            onClick: () => setExpanded((prevExpanded) => !prevExpanded),
-        })}>
+                onClick: () => setExpanded((prevExpanded) => !prevExpanded),
+            })}>
             <DisplayPokemon pokemonToRender={pokemonToRender} />
-
-            <section {...getCollapseProps()} style={{ margin : '5px' }}>
+            <section {...getCollapseProps()} style={{ margin: '5px' }}>
                 {children}
             </section>
         </div>
