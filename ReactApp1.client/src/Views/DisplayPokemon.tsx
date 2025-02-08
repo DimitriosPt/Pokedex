@@ -3,6 +3,7 @@ import '../Styles/Utility.css';
 
 interface Pokemon
 {
+    id: string;
     name: string;
     types: string[];
     TypeRelations: TypeRelationTable[];

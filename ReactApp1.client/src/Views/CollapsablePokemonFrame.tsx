@@ -14,6 +14,7 @@ interface TypeRelationTable
 
 interface Pokemon
 {
+    id: string;
     name: string;
     types: string[];
     TypeRelations: TypeRelationTable[];

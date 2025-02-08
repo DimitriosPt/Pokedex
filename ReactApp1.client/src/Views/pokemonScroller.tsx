@@ -20,7 +20,7 @@ interface Pokemon
     types: string[];
     spriteURL?: string;
     TypeRelations: TypeRelationTable[];
-    id: number;
+    id: string;
 }
 
 function PokedexScroller()
