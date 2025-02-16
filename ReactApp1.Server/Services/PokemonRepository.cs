@@ -262,7 +262,7 @@ namespace pokedex.Server.Services
         {
             using (var client = new HttpClient())
             {
-                string pokemonEndPoint = $"https://pokeapi.co/api/v2/pokemon?limit={limit}&offset={offset}";
+                string pokemonEndPoint = $"https://pokeapi.co/api/v2/pokemon/?offset={offset}&limit={limit}";
                 var response = await client.GetAsync(pokemonEndPoint);
 
                 if (response.StatusCode == HttpStatusCode.NotFound)

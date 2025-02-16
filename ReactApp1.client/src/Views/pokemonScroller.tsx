@@ -1,4 +1,3 @@
-/* eslint-disable prefer-const */
 import { useEffect, useState } from 'react';
 import InfiniteScroll from "react-infinite-scroll-component";
 import CollapsablePokemonFrame from './CollapsablePokemonFrame';
@@ -26,35 +25,52 @@ interface Pokemon
 function PokedexScroller()
 {
     const [currentlyLoadedPokemon, setPokemon] = useState<Pokemon[]>([]);
-
-    //const fetchPokemon = useCallback(async () =>
-    //{
-    //    setLoading(true);
-    //    try
-    //    {
-    //        const response = await fetch(`/allPokemon?limit=${currentlyLoadedPokemon.length}&offset=${limit}`);
-    //    }
-    //})
+    const [offSet, setOffset] = useState(0);
+    const [hasMore, setHasMore] = useState(true);
 
     useEffect(() =>
     {
         async function getAllPokemon()
         {
-            const response = await fetch('/allPokemon');
+            const response = await fetch(`/allPokemon/range?limit=30&offset=${offSet}`);
             const data = await response.json();
-            setPokemon(data);
+            if (data.length === 0) {
+                setHasMore(false);
+            } else {
+                setPokemon(prevPokemon => [...prevPokemon, ...data]);
+                setOffset(prevOffset => prevOffset + 30); // Update the offset after fetching data
+            }
         }
 
         getAllPokemon();
     }, []);
 
+    const fetchMoreData = () =>
+    {
+        async function getAllPokemon()
+        {
+            const response = await fetch(`/allPokemon/range?limit=30&offset=${offSet}`);
+            const data = await response.json();
+            if (data.length === 0) {
+                setHasMore(false);
+            } else {
+                setPokemon(prevPokemon => [...prevPokemon, ...data]);
+                setOffset(prevOffset => prevOffset + 30); // Update the offset after fetching data
+            }
+        }
+
+        getAllPokemon();
+    };
+
     return (
         <InfiniteScroll
-            dataLength={1000}
-            hasMore={false}
+            dataLength={currentlyLoadedPokemon.length}
+            hasMore={hasMore}
             loader={<h4>Loading...</h4>}
-            next={() => { }}
-            style={{ overflow: 'auto', maxHeight: '50vh' }}
+            next={fetchMoreData}
+            height={"50vh"}
+            style={{ overflow: 'auto', overflowX: 'hidden', maxWidth: '200px', padding: '20px', margin:'10px' }}
+            
         >
             {currentlyLoadedPokemon?.map((pokemon) => (
                 <CollapsablePokemonFrame pokemonToRender={pokemon} key={pokemon.id} >
