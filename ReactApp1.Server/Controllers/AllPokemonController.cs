@@ -35,7 +35,7 @@ namespace pokedex.Server.Controllers
             return Ok(returnedPokemon);
         }
 
-        // /allPokemon/{limit/Offset}
+        // /allPokemon/range/?limit={limit}&offset={offset}}
         [HttpGet("range")]
         public async Task<IActionResult> Get([FromQuery] int limit, [FromQuery] int offset)
         {
