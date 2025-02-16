@@ -25,7 +25,16 @@ interface Pokemon
 
 function PokedexScroller()
 {
-    const [allPokemon, setPokemon] = useState<Pokemon[]>([]);
+    const [currentlyLoadedPokemon, setPokemon] = useState<Pokemon[]>([]);
+
+    //const fetchPokemon = useCallback(async () =>
+    //{
+    //    setLoading(true);
+    //    try
+    //    {
+    //        const response = await fetch(`/allPokemon?limit=${currentlyLoadedPokemon.length}&offset=${limit}`);
+    //    }
+    //})
 
     useEffect(() =>
     {
@@ -47,7 +56,7 @@ function PokedexScroller()
             next={() => { }}
             style={{ overflow: 'auto', maxHeight: '50vh' }}
         >
-            {allPokemon?.map((pokemon) => (
+            {currentlyLoadedPokemon?.map((pokemon) => (
                 <CollapsablePokemonFrame pokemonToRender={pokemon} key={pokemon.id} >
                     <TypesList typesList={pokemon.types} />
                 </CollapsablePokemonFrame>
