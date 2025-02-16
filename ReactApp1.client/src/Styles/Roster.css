@@ -1,7 +1,7 @@
 
 /*.roster-grid {*/
-    /* Add styles for roster slots */
-    /*border-radius: 10px;
+/* Add styles for roster slots */
+/*border-radius: 10px;
     padding: 10px;
     border: 2px solid #000;
     width: 120px;
@@ -16,9 +16,10 @@
     margin: 10px;
     border: 2px solid #000;
     border-radius: 10px;
-    width: 120px;
-    height: 100px;
+    width: 20vw;
+    height: 10vh;
     fill-opacity: 0.5;
     box-shadow: 0 0 5px #000;
     transform: skew(7deg);
 }
+

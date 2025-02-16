@@ -40,7 +40,7 @@ function DisplayPokemon({ pokemonToRender, children }: Props)
 
 
     const transformStyle = transform ?
-        { transform: `translate(${transform.x}px, ${transform.y}px)` } : undefined;
+            { transform: `translate(${transform.x}px, ${transform.y}px)`, zIndex: 999 } : undefined;
 
     useEffect(() =>
     {
