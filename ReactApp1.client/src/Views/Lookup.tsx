@@ -90,6 +90,8 @@ function Lookup()
             }
 
             <button onClick={() => window.location.href = '/all'}>Pokedex</button>
+
+            <button onClick={() => window.location.href = '/party'}>Build Party</button>
         </>
     );
 }

@@ -45,7 +45,7 @@ function PokedexScroller()
             hasMore={false}
             loader={<h4>Loading...</h4>}
             next={() => { }}
-            style={{ overflow: 'hidden' }}
+            style={{ overflow: 'auto', maxHeight: '50vh' }}
         >
             {allPokemon?.map((pokemon) => (
                 <CollapsablePokemonFrame pokemonToRender={pokemon} key={pokemon.id} >
