@@ -22,30 +22,31 @@ interface Pokemon
     id: string;
 }
 
+const LIMIT = 60;
+
 function PokedexScroller()
 {
     const [currentlyLoadedPokemon, setPokemon] = useState<Pokemon[]>([]);
     const [offSet, setOffset] = useState(0);
     const [hasMore, setHasMore] = useState(true);
-    const [isInitialLoad, setIsInitialLoad] = useState(true); // Add initial load state
 
-    async function fetchPokemon()
-    {
-        const response = await fetch(`/allPokemon/range?limit=60&offset=${offSet}`);
-        const data = await response.json();
-        if (data.length === 0)
-        {
-            setHasMore(false);
-        } else
-        {
-            setOffset(prevOffset => prevOffset + 60); // Update the offset after fetching data
-            setPokemon(prevPokemon => [...prevPokemon, ...data]);
-        }
-        setIsInitialLoad(false); // Set initial load to false after initial fetch
-    }
+
 
     useEffect(() =>
     {
+        async function fetchPokemon()
+        {
+            const response = await fetch(`/allPokemon/range?${LIMIT}=60&offset=${offSet}`);
+            const data = await response.json();
+            if (data.length === 0)
+            {
+                setHasMore(false);
+            } else
+            {
+                setPokemon(prevPokemon => [...prevPokemon, ...data]);
+            }
+        }
+
         fetchPokemon();
     }, [offSet]);
 
@@ -53,11 +54,11 @@ function PokedexScroller()
     return (
         <InfiniteScroll
             dataLength={currentlyLoadedPokemon.length}
-            hasMore={hasMore && !isInitialLoad} // Prevent next request if initial load is in progress
+            hasMore={hasMore} // Prevent next request if initial load is in progress
             loader={<h4>Loading...</h4>}
-            next={fetchPokemon}
+            next={() => { setOffset(prev => prev + 60); }}
             height={"50vh"}
-            style={{ overflow: 'auto', overflowX: 'hidden', maxWidth: '200px', padding: '20px', margin:'10px' }}
+            style={{ overflow: 'auto', overflowX: 'hidden', maxWidth: '200px', padding: '20px', margin: '10px', direction: 'rtl' }}
         >
             {currentlyLoadedPokemon?.map((pokemon) => (
                 <CollapsablePokemonFrame pokemonToRender={pokemon} key={pokemon.id} >
