@@ -16,8 +16,6 @@ namespace pokedex.Server.Services
 
         private string typesEndPoint = "https://pokeapi.co/api/v2/type/";
 
-        private List<Pokemon> allPokemonList;
-
         /// <summary>
         /// Attempts to retrieve Pokemon data from the API using the provided name.
         /// </summary>
@@ -210,11 +208,6 @@ namespace pokedex.Server.Services
         {
             int pokemonLimit = 1000;
 
-            if (this.allPokemonList != null)
-            {
-                return this.allPokemonList;
-            }
-
             using (var client = new HttpClient())
             {
                 string pokemonEndPoint = $"https://pokeapi.co/api/v2/pokemon?limit={pokemonLimit}";
@@ -245,10 +238,49 @@ namespace pokedex.Server.Services
 
                 pokemonList.AddRange(pokemonDataArray);
 
-                // Cache the list of all pokemon so we never need to fetch it again.
-                this.allPokemonList = pokemonList;
+                return pokemonList;
+            }
+        }
 
-                return this.allPokemonList;
+        /// <summary>
+        /// Gets the pokemon from all pokemon starting at offset and going to offset + limit.
+        /// </summary>
+        /// <param name="limit">How many items to pull.</param>
+        /// <param name="offset">Where in the collection to start pulling the items</param>
+        /// <returns>the pokemon within that range.</returns>
+        public async Task<IList<Pokemon>> Get(int limit, int offset)
+        {
+            using (var client = new HttpClient())
+            {
+                string pokemonEndPoint = $"https://pokeapi.co/api/v2/pokemon/?offset={offset}&limit={limit}";
+                var response = await client.GetAsync(pokemonEndPoint);
+
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return null;
+                }
+
+                var json = await response.Content.ReadAsStringAsync();
+
+                var parsedJson = JObject.Parse(json);
+
+                var pokemonArray = parsedJson?["results"]?.ToArray() ?? new JToken[0];
+
+                List<Pokemon> retrievedPokemonList = new List<Pokemon>();
+
+                var tasks = pokemonArray.Select(async (pokemonMetadata) =>
+                {
+                    string pokemonName = pokemonMetadata["name"]?.ToString() ?? string.Empty;
+                    Pokemon pokemonData = await this.GetPokemon(pokemonName);
+
+                    return pokemonData;
+                });
+
+                Pokemon[] pokemonDataArray = await Task.WhenAll(tasks);
+
+                retrievedPokemonList.AddRange(pokemonDataArray);
+
+                return retrievedPokemonList;
             }
         }
     }

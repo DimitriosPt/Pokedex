@@ -1,13 +1,3 @@
-
-/*.roster-grid {*/
-/* Add styles for roster slots */
-/*border-radius: 10px;
-    padding: 10px;
-    border: 2px solid #000;
-    width: 120px;
-    height: 100px;
-}*/
-
 .roster-slot {
     /* Add styles for roster slots */
     display: flex;
@@ -23,3 +13,7 @@
     transform: skew(7deg);
 }
 
+.roster-slot:hover {
+    border-color: gold;
+    transform: scale(1.1) skew(7deg);
+}

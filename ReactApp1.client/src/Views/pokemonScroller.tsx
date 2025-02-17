@@ -1,4 +1,3 @@
-/* eslint-disable prefer-const */
 import { useEffect, useState } from 'react';
 import InfiniteScroll from "react-infinite-scroll-component";
 import CollapsablePokemonFrame from './CollapsablePokemonFrame';
@@ -23,31 +22,45 @@ interface Pokemon
     id: string;
 }
 
+const LIMIT = 60;
+
 function PokedexScroller()
 {
-    const [allPokemon, setPokemon] = useState<Pokemon[]>([]);
+    const [currentlyLoadedPokemon, setPokemon] = useState<Pokemon[]>([]);
+    const [offSet, setOffset] = useState(0);
+    const [hasMore, setHasMore] = useState(true);
+
+
 
     useEffect(() =>
     {
-        async function getAllPokemon()
+        async function fetchPokemon()
         {
-            const response = await fetch('/allPokemon');
+            const response = await fetch(`/allPokemon/range?${LIMIT}=60&offset=${offSet}`);
             const data = await response.json();
-            setPokemon(data);
+            if (data.length === 0)
+            {
+                setHasMore(false);
+            } else
+            {
+                setPokemon(prevPokemon => [...prevPokemon, ...data]);
+            }
         }
 
-        getAllPokemon();
-    }, []);
+        fetchPokemon();
+    }, [offSet]);
+
 
     return (
         <InfiniteScroll
-            dataLength={1000}
-            hasMore={false}
+            dataLength={currentlyLoadedPokemon.length}
+            hasMore={hasMore} // Prevent next request if initial load is in progress
             loader={<h4>Loading...</h4>}
-            next={() => { }}
-            style={{ overflow: 'auto', maxHeight: '50vh' }}
+            next={() => { setOffset(prev => prev + 60); }}
+            height={"50vh"}
+            style={{ overflow: 'auto', overflowX: 'hidden', maxWidth: '200px', padding: '20px', margin: '10px', direction: 'rtl' }}
         >
-            {allPokemon?.map((pokemon) => (
+            {currentlyLoadedPokemon?.map((pokemon) => (
                 <CollapsablePokemonFrame pokemonToRender={pokemon} key={pokemon.id} >
                     <TypesList typesList={pokemon.types} />
                 </CollapsablePokemonFrame>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+
 using pokedex.Server.Services.Interfaces;
 
 namespace pokedex.Server.Controllers
@@ -25,6 +26,20 @@ namespace pokedex.Server.Controllers
         public async Task<IActionResult> Get()
         {
             var returnedPokemon = await _pokemonRepository.GetAllPokemon();
+
+            if (returnedPokemon == null)
+            {
+                return NotFound("Pokemon not found");
+            }
+
+            return Ok(returnedPokemon);
+        }
+
+        // /allPokemon/range/?limit={limit}&offset={offset}}
+        [HttpGet("range")]
+        public async Task<IActionResult> Get([FromQuery] int limit, [FromQuery] int offset)
+        {
+            var returnedPokemon = await _pokemonRepository.Get(limit, offset);
 
             if (returnedPokemon == null)
             {

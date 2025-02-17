@@ -1,4 +1,5 @@
-﻿using pokedex.Server.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using pokedex.Server.Models;
 
 namespace pokedex.Server.Services.Interfaces
 {
@@ -44,5 +45,11 @@ namespace pokedex.Server.Services.Interfaces
         /// </summary>
         /// <returns>An IList of pokemon.</returns>
         public Task<IList<Pokemon>> GetAllPokemon();
+
+        /// <summary>
+        /// Gets a range of pokemon from offset, to offset + limit from the API.
+        /// </summary>
+        public Task<IList<Pokemon>> Get([FromQuery] int limit, [FromQuery] int offset);
+
     }
 }

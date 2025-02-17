@@ -20,6 +20,7 @@ namespace ReactApp1.Server.Controllers
             _pokemonRepository = pokemonRepository;
         }
 
+        // /findPokemon/{name}
         [HttpGet("{name}")]
         public async Task<IActionResult> Get(string name)
         {
