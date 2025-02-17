@@ -32,7 +32,7 @@ function Roster()
         typeImmunities: string[];
     }
 
-    
+
     function handleDragEnd(event: DragEndEvent)
     {
         const { active, over } = event;
@@ -46,17 +46,23 @@ function Roster()
 
         const pokemonToSlot = active.data.current as Pokemon;
 
-        if (over.id === "slot1") {
+        if (over.id === "slot1")
+        {
             setFirstPokemon(pokemonToSlot);
-        } else if (over.id === "slot2") {
+        } else if (over.id === "slot2")
+        {
             setSecondPokemon(pokemonToSlot);
-        } else if (over.id === "slot3") {
+        } else if (over.id === "slot3")
+        {
             setThirdPokemon(pokemonToSlot);
-        } else if (over.id === "slot4") {
+        } else if (over.id === "slot4")
+        {
             setFourthPokemon(pokemonToSlot);
-        } else if (over.id === "slot5") {
+        } else if (over.id === "slot5")
+        {
             setFifthPokemon(pokemonToSlot);
-        } else if (over.id === "slot6") {
+        } else if (over.id === "slot6")
+        {
             setSixthPokemon(pokemonToSlot);
         }
 
@@ -65,9 +71,7 @@ function Roster()
         <DndContext onDragEnd={handleDragEnd}>
             <div style={{ display: 'flex' }}>
 
-                <div className="pokedex-scroller" style={{ overflow: 'clip' }}>
-                    <PokedexScroller/>
-                </div>
+                <PokedexScroller />
 
                 <div style={{ display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 1 }}>
                     <div className='roster-slot'>

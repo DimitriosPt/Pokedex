@@ -54,7 +54,7 @@ namespace PokedexTest
         [TestCategory(TestList.EndToEnd)]
         public void FetchAllPokemonTest_LiveTest()
         {
-            var pokemonRepository = PokemonRepository.Instance;
+            var pokemonRepository = new PokemonRepository();
 
             // Arrange
             var allPokemonController = new AllPokemonController(pokemonRepository);
