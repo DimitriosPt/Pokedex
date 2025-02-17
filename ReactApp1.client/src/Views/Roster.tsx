@@ -1,20 +1,19 @@
-import { DndContext, DragEndEvent } from '@dnd-kit/core';
+import { DndContext, DragEndEvent, DragStartEvent, DragOverlay } from '@dnd-kit/core';
 import '../Styles/Roster.css';
 import PokedexScroller from './pokemonScroller';
 import RosterSlot from './RosterSlot';
 import { useState } from 'react';
 
-function Roster()
-{
+function Roster() {
     const [firstPokemon, setFirstPokemon] = useState<Pokemon | undefined>(undefined);
     const [secondPokemon, setSecondPokemon] = useState<Pokemon | undefined>(undefined);
     const [thirdPokemon, setThirdPokemon] = useState<Pokemon | undefined>(undefined);
     const [fourthPokemon, setFourthPokemon] = useState<Pokemon | undefined>(undefined);
     const [fifthPokemon, setFifthPokemon] = useState<Pokemon | undefined>(undefined);
     const [sixthPokemon, setSixthPokemon] = useState<Pokemon | undefined>(undefined);
+    const [activePokemon, setActivePokemon] = useState<Pokemon | null>(null);
 
-    interface Pokemon
-    {
+    interface Pokemon {
         id: string;
         name: string;
         types: string[];
@@ -22,8 +21,7 @@ function Roster()
         spriteURL?: string;
     }
 
-    interface TypeRelationTable
-    {
+    interface TypeRelationTable {
         id: string,
         type: string,
         typeAdvantages: string[],
@@ -32,13 +30,15 @@ function Roster()
         typeImmunities: string[];
     }
 
+    function handleDragStart(event: DragStartEvent) {
+        const { active } = event;
+        setActivePokemon(active.data.current as Pokemon);
+    }
 
-    function handleDragEnd(event: DragEndEvent)
-    {
+    function handleDragEnd(event: DragEndEvent) {
         const { active, over } = event;
 
-        if (!over)
-        {
+        if (!over) {
             return;
         }
 
@@ -46,31 +46,26 @@ function Roster()
 
         const pokemonToSlot = active.data.current as Pokemon;
 
-        if (over.id === "slot1")
-        {
+        if (over.id === "slot1") {
             setFirstPokemon(pokemonToSlot);
-        } else if (over.id === "slot2")
-        {
+        } else if (over.id === "slot2") {
             setSecondPokemon(pokemonToSlot);
-        } else if (over.id === "slot3")
-        {
+        } else if (over.id === "slot3") {
             setThirdPokemon(pokemonToSlot);
-        } else if (over.id === "slot4")
-        {
+        } else if (over.id === "slot4") {
             setFourthPokemon(pokemonToSlot);
-        } else if (over.id === "slot5")
-        {
+        } else if (over.id === "slot5") {
             setFifthPokemon(pokemonToSlot);
-        } else if (over.id === "slot6")
-        {
+        } else if (over.id === "slot6") {
             setSixthPokemon(pokemonToSlot);
         }
 
+        setActivePokemon(null); // Clear the active Pokemon after drop
     }
-    return (
-        <DndContext onDragEnd={handleDragEnd}>
-            <div style={{ display: 'flex' }}>
 
+    return (
+        <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
+            <div style={{ display: 'flex' }}>
                 <PokedexScroller />
 
                 <div style={{ display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 1 }}>
@@ -96,6 +91,14 @@ function Roster()
                     </div>
                 </div>
             </div>
+            <DragOverlay>
+                {activePokemon ? (
+                    <div className="drag-overlay">
+                        <img src={activePokemon.spriteURL} alt={activePokemon.name} />
+                        <p>{activePokemon.name}</p>
+                    </div>
+                ) : null}
+            </DragOverlay>
         </DndContext>
     );
 }
