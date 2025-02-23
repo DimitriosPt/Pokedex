@@ -3,6 +3,7 @@ import '../Styles/Roster.css';
 import PokedexScroller from './pokemonScroller';
 import RosterSlot from './RosterSlot';
 import { useState } from 'react';
+import TeamStatblock from './TeamStatblock';
 
 function Roster() {
     const [firstPokemon, setFirstPokemon] = useState<Pokemon | undefined>(undefined);
@@ -67,29 +68,37 @@ function Roster() {
         <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
             <div style={{ display: 'flex' }}>
                 <PokedexScroller />
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ display: 'flex', flexDirection: 'row' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 1 }}>
+                            <div className='roster-slot'>
+                                <RosterSlot PokemonToSlot={firstPokemon} slotID="slot1" />
+                            </div>
+                            <div className='roster-slot'>
+                                <RosterSlot PokemonToSlot={secondPokemon} slotID="slot2" />
+                            </div>
+                            <div className='roster-slot'>
+                                <RosterSlot PokemonToSlot={thirdPokemon} slotID="slot3" />
+                            </div>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 1 }}>
+                            <div className='roster-slot'>
+                                <RosterSlot PokemonToSlot={fourthPokemon} slotID="slot4" />
+                            </div>
+                            <div className='roster-slot'>
+                                <RosterSlot PokemonToSlot={fifthPokemon} slotID="slot5" />
+                            </div>
+                            <div className='roster-slot'>
+                                <RosterSlot PokemonToSlot={sixthPokemon} slotID="slot6" />
+                            </div>
+                        </div>
+                    </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 1 }}>
-                    <div className='roster-slot'>
-                        <RosterSlot PokemonToSlot={firstPokemon} slotID="slot1" />
-                    </div>
-                    <div className='roster-slot'>
-                        <RosterSlot PokemonToSlot={secondPokemon} slotID="slot2" />
-                    </div>
-                    <div className='roster-slot'>
-                        <RosterSlot PokemonToSlot={thirdPokemon} slotID="slot3" />
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <TeamStatblock team={[firstPokemon, secondPokemon, thirdPokemon, fourthPokemon, fifthPokemon, sixthPokemon]} />
                     </div>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 1 }}>
-                    <div className='roster-slot'>
-                        <RosterSlot PokemonToSlot={fourthPokemon} slotID="slot4" />
-                    </div>
-                    <div className='roster-slot'>
-                        <RosterSlot PokemonToSlot={fifthPokemon} slotID="slot5" />
-                    </div>
-                    <div className='roster-slot'>
-                        <RosterSlot PokemonToSlot={sixthPokemon} slotID="slot6" />
-                    </div>
-                </div>
+
             </div>
             <DragOverlay>
                 {activePokemon ? (
